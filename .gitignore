@@ -6,8 +6,12 @@ Thumbs.db
 .idea
 *.sublime*
 .vscode
-public/bundle.js
-public/bundle.js.map
+
 # Вспомогательные файлы
 *.log*
 node_modules/
+
+# Файлы сборки
+
+public/bundle.js
+public/bundle.js.map
