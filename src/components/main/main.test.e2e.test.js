@@ -12,20 +12,22 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should welcome button be pressed`, () => {
+it(`Should bookmark button be pressed`, () => {
   const onBookmarkClick = jest.fn();
 
-  const welcomeScreen = shallow(
+  const mainScreen = shallow(
       <Main
         rentOptionsCount={Options.RENT_COUNT}
         rentOptionsDescriptions={Options.DESCRIPTION}
-        onWelcomeButtonClick={onBookmarkClick}
+        onBookmarkClick={onBookmarkClick}
       />
   );
 
-  const bookmarkButton = welcomeScreen.find(`place-card__bookmark-button`);
+  const bookmarkButtons = mainScreen.find(`place-card__bookmark-button`);
 
-  bookmarkButton.props().onClick();
+  bookmarkButtons.forEach((bookmarkButton) => {
+    bookmarkButton.props().onClick();
+  });
 
-  expect(bookmarkButton.mock.calls.length).toBe(1);
+  expect(onBookmarkClick.mock.calls.length).toBe(bookmarkButtons.length);
 });

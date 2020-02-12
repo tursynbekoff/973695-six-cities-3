@@ -101,9 +101,9 @@ const Main = (props) => {
                           <span className="place-card__price-text">&#47;&nbsp;night</span>
                         </div>
                         <button
+                          onClick={onBookmarkClick}
                           className="place-card__bookmark-button button"
                           type="button"
-                          onClick={onBookmarkClick}
                         >
                           <svg className="place-card__bookmark-icon" width="18" height="19">
 
