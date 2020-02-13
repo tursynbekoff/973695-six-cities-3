@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const Main = ({rentOptionsCount, rentOptionsDescriptions}) => {
-  // eslint-disable-next-line react/prop-types
+const Main = (props) => {
+  const {rentOptionsCount, rentOptionsDescriptions, onBookmarkClick} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -100,7 +100,11 @@ const Main = ({rentOptionsCount, rentOptionsDescriptions}) => {
                           <b className="place-card__price-value">&euro;120</b>
                           <span className="place-card__price-text">&#47;&nbsp;night</span>
                         </div>
-                        <button className="place-card__bookmark-button button" type="button">
+                        <button
+                          onClick={onBookmarkClick}
+                          className="place-card__bookmark-button button"
+                          type="button"
+                        >
                           <svg className="place-card__bookmark-icon" width="18" height="19">
 
                           </svg>
@@ -136,10 +140,10 @@ const Main = ({rentOptionsCount, rentOptionsDescriptions}) => {
 
 Main.propTypes = {
   rentOptionsCount: PropTypes.number.isRequired,
-
   rentOptionsDescriptions: PropTypes.arrayOf(
       PropTypes.string
-  ).isRequired
+  ).isRequired,
+  onBookmarkClick: PropTypes.func.isRequired
 };
 
 export default Main;
