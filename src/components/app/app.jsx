@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 
 const onBookmarkClick = () => {};
 
-const App = ({rentOptionsCount, rentOptionsDescriptions}) => {
+const App = (props) => {
+  const {rentOptionsCount, offerList} = props;
 
   return (
     <Main
       rentOptionsCount={rentOptionsCount}
-      rentOptionsDescriptions={rentOptionsDescriptions}
+      offerList={offerList}
       onBookmarkClick={onBookmarkClick}
 
     />
@@ -19,9 +20,12 @@ const App = ({rentOptionsCount, rentOptionsDescriptions}) => {
 App.propTypes = {
   rentOptionsCount: PropTypes.number.isRequired,
 
-  rentOptionsDescriptions: PropTypes.arrayOf(
-      PropTypes.string
-  ).isRequired
+  offerList: PropTypes.arrayOf(
+      PropTypes.shape({
+        price: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      })).isRequired
 
 };
 
