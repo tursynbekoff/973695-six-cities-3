@@ -1,11 +1,14 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Main from "./main";
+import Card from "./offer-card";
 
-const Options = {
-  RENT_COUNT: 100,
-  DESCRIPTION: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`]
+const index = 5464564;
+
+const offer = {
+  price: `60`,
+  description: `Wood and stone place`,
+  type: `Private room`
 };
 
 Enzyme.configure({
@@ -16,10 +19,10 @@ it(`Should bookmark button be pressed`, () => {
   const onBookmarkClick = jest.fn();
 
   const mainScreen = shallow(
-      <Main
-        rentOptionsCount={Options.RENT_COUNT}
-        rentOptionsDescriptions={Options.DESCRIPTION}
+      <Card
+        offerCard={offer}
         onBookmarkClick={onBookmarkClick}
+        key={index}
       />
   );
 
