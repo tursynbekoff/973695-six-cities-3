@@ -1,10 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-
-const Options = {
-  RENT_COUNT: 100
-};
+import OfferList from "./offer-list.jsx";
 
 const offerList = [
   {
@@ -30,8 +26,7 @@ it(`Should WelcomeScreen render correctly`, () => {
   const onBookmarkClick = jest.fn();
 
   const tree = renderer
-    .create(<Main
-      rentOptionsCount={Options.RENT_COUNT}
+    .create(<OfferList
       offerList={offerList}
       onBookmarkClick={onBookmarkClick}
     />)
