@@ -11,7 +11,8 @@ module.exports = {
     contentBase: path.join(__dirname, `public`),
     open: false,
     compress: true,
-    watchContentBase: true
+    watchContentBase: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
