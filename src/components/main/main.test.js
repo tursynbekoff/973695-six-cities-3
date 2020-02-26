@@ -30,7 +30,7 @@ const offerList = [
   }
 ];
 
-it(`Should WelcomeScreen render correctly`, () => {
+it(` Main render has problems`, () => {
   const onBookmarkClick = jest.fn();
 
   const tree = renderer
