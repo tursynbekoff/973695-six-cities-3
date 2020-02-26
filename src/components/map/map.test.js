@@ -1,4 +1,8 @@
-export default [
+import React from "react";
+import renderer from "react-test-renderer";
+import Map from "./map.jsx";
+
+const offerList = [
   {
     price: `60`,
     description: `Wood and stone place`,
@@ -21,3 +25,15 @@ export default [
     coordinate: [52.3809553943508, 4.939309666406198]
   }
 ];
+
+it(`Render Map`, () => {
+  const tree = renderer
+      .create(<Map
+        offerList={offerList}
+      />, {
+        createNodeMock: () => document.createElement(`div`)
+      })
+      .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
