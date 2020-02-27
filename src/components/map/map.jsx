@@ -53,7 +53,7 @@ Map.propTypes = {
 
   offerList: PropTypes.arrayOf(
       PropTypes.shape({
-        coordinate: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+        coordinate: PropTypes.arrayOf(PropTypes.number.isRequired)
       })).isRequired
 
 };

@@ -32,11 +32,14 @@ const offerList = [
 
 it(`Render App`, () => {
   const tree = renderer
-      .create(<App
-        rentOptionsCount={Options.RENT_COUNT}
-        offerList={offerList}
-      />)
-      .toJSON();
+      .create(
+          <App
+            rentOptionsCount={Options.RENT_COUNT}
+            offerList={offerList}
+          />, {
+            createNodeMock: () => document.createElement(`div`)
+          }
+      ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

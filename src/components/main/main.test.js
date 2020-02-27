@@ -34,12 +34,15 @@ it(` Main render has problems`, () => {
   const onBookmarkClick = jest.fn();
 
   const tree = renderer
-    .create(<Main
-      rentOptionsCount={Options.RENT_COUNT}
-      offerList={offerList}
-      onBookmarkClick={onBookmarkClick}
-    />)
-    .toJSON();
+      .create(
+          <Main
+            rentOptionsCount={Options.RENT_COUNT}
+            offerList={offerList}
+            onBookmarkClick={onBookmarkClick}
+          />, {
+            createNodeMock: () => document.createElement(`div`)
+          }
+      ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
