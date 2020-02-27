@@ -2,24 +2,23 @@ import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 
+const city = [52.38333, 4.9];
+const zoom = 12;
+
+const icon = leaflet.icon({
+  iconUrl: `/img/pin.svg`,
+  iconSize: [20, 30]
+});
 class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.props = props;
 
-    this._mapDiv = createRef();
+    this.map = createRef();
   }
 
   componentDidMount() {
-    const city = [52.38333, 4.9];
-    const icon = leaflet.icon({
-      iconUrl: `/img/pin.svg`,
-      iconSize: [20, 30]
-    });
-
-    const zoom = 12;
-
-    const map = leaflet.map(this._mapDiv.current, {
+    const map = leaflet.map(this.map.current, {
       center: city,
       zoom,
       zoomControl: false,
@@ -33,15 +32,18 @@ class Map extends PureComponent {
         })
         .addTo(map);
 
-    this.props.offerList.forEach((it) => {
+    this.props.offerList.map((it) => {
       leaflet.marker(it.coordinate, {icon}).addTo(map);
     });
   }
 
+  componentWillUnmount() {
+    this.map.current = null;
+  }
 
   render() {
     return (
-      <div id="map" style={{height: `100%`}} ref={this._mapDiv}></div>
+      <div id="map" style={{height: `100%`}} ref={this.map}></div>
     );
   }
 
@@ -51,11 +53,7 @@ Map.propTypes = {
 
   offerList: PropTypes.arrayOf(
       PropTypes.shape({
-        price: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        coordinate: PropTypes.arrayOf(PropTypes.number.isRequired)
-            .isRequired
+        coordinate: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
       })).isRequired
 
 };

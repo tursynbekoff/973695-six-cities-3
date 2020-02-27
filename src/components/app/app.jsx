@@ -63,9 +63,7 @@ App.propTypes = {
         price: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-        coordinate: PropTypes.arrayOf(
-            PropTypes.number)
-          .isRequired
+        coordinate: PropTypes.array.isRequired
       })).isRequired
 
 };

@@ -28,12 +28,13 @@ const offerList = [
 
 it(`Render Map`, () => {
   const tree = renderer
-      .create(<Map
-        offerList={offerList}
-      />, {
-        createNodeMock: () => document.createElement(`div`)
-      })
-      .toJSON();
+      .create(
+          <Map
+            offerList={offerList}
+          />, {
+            createNodeMock: () => document.createElement(`div`)
+          }
+      ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

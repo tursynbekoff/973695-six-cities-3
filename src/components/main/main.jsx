@@ -85,12 +85,10 @@ const Main = (props) => {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-
                 <OfferList
                   offerList={offerList}
                   onBookmarkClick={onBookmarkClick}
                 />
-
 
               </div>
             </section>
@@ -115,8 +113,7 @@ Main.propTypes = {
         price: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-        coordinate: PropTypes.arrayOf(PropTypes.number)
-          .isRequired
+        coordinate: PropTypes.array
       })).isRequired,
   onBookmarkClick: PropTypes.func.isRequired
 };
