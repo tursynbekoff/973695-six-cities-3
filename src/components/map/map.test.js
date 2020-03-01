@@ -1,10 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-
-const Options = {
-  RENT_COUNT: 100
-};
+import Map from "./map.jsx";
 
 const offerList = [
   {
@@ -30,15 +26,11 @@ const offerList = [
   }
 ];
 
-it(` Main render has problems`, () => {
-  const onBookmarkClick = jest.fn();
-
+it(`Render Map`, () => {
   const tree = renderer
       .create(
-          <Main
-            rentOptionsCount={Options.RENT_COUNT}
+          <Map
             offerList={offerList}
-            onBookmarkClick={onBookmarkClick}
           />, {
             createNodeMock: () => document.createElement(`div`)
           }

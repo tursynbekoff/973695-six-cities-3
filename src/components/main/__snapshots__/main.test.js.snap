@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should WelcomeScreen render correctly 1`] = `
+exports[` Main render has problems 1`] = `
 <div
   className="page page--gray page--main"
 >
@@ -607,7 +607,16 @@ exports[`Should WelcomeScreen render correctly 1`] = `
         >
           <section
             className="cities__map map"
-          />
+          >
+            <div
+              id="map"
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            />
+          </section>
         </div>
       </div>
     </div>
