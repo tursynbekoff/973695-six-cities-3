@@ -6,7 +6,11 @@ import Details from "./offer-details.jsx";
 it(`Should OfferDetails render correctly`, () => {
 
   const tree = renderer
-    .create(<Details />)
+    .create(<Details />,
+        {
+          createNodeMock: () => document.createElement(`div`)
+        }
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
