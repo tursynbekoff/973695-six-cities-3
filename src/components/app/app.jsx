@@ -3,6 +3,8 @@ import Main from "../main/main.jsx";
 import Details from "../offer-details/offer-details.jsx";
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
 
 
 class App extends PureComponent {
@@ -12,28 +14,41 @@ class App extends PureComponent {
     this.state = {
       step: -1
     };
+
+    this._handleHeaderClick = this._handleHeaderClick.bind(this);
   }
 
-  _renderApp() {
-    const {rentOptionsCount, offerList} = this.props;
-    const {step} = this.state;
+  _handleHeaderClick(id) {
+    this.setState({
+      value: id,
+    });
+  }
 
-    if (step > -1) {
-      return (
-        <Details />
-      );
-    }
-
+  _renderMainScreen() {
     return (
       <Main
-        rentOptionsCount={rentOptionsCount}
-        offerList={offerList}
-        onBookmarkClick={() => {
-          this.setState({
-            step: 0
-          });
-        }}
+        offerList={this.props.currentOffers}
+        cities={this.props.cities}
+        currentCity={this.props.currentCity}
+        onCityClick={this.props.onCityClick}
+        onBookmarkClick={this._handleHeaderClick}
       />
+    );
+  }
+
+  _renderDetailsScreen(id) {
+    const offer = this.props.currentOffers[0].offers.find(
+        (property) => property.id === +id
+    );
+    return offer ? (
+      <Details
+        offer={offer}
+        location={this.props.currentOffers[0].location}
+        offers={this.props.currentOffers[0].offers}
+        onHeaderClick={this._handleHeaderClick}
+      />
+    ) : (
+      <Details to="/" />
     );
   }
 
@@ -43,11 +58,13 @@ class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderApp()}
+            {this._renderMainScreen()}
           </Route>
-          <Route exact path="/offer">
-            <Details />
-          </Route>
+          <Route exact path="/detail/:id"
+            render={(routeProps) =>
+              this._renderDetailsScreen(routeProps.match.params.id)
+            }
+          />
         </Switch>
       </BrowserRouter>
     );
@@ -56,16 +73,29 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  rentOptionsCount: PropTypes.number.isRequired,
 
-  offerList: PropTypes.arrayOf(
-      PropTypes.shape({
-        price: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        coordinate: PropTypes.array.isRequired
-      })).isRequired
+  currentOffers: PropTypes.array.isRequired,
+  cities: PropTypes.array.isRequired,
+  onCityClick: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired
 
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  currentCity: state.currentCity,
+  offers: state.offers,
+  currentOffers: state.currentOffers,
+  cities: state.cities,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick(evt, city) {
+    evt.preventDefault();
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffers(city));
+  },
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
