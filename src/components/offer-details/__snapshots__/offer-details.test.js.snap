@@ -329,12 +329,71 @@ exports[`Should OfferDetails render correctly 1`] = `
               <span
                 className="reviews__amount"
               >
-                1
+                2
               </span>
             </h2>
             <ul
               className="reviews__list"
             >
+              <li
+                className="reviews__item"
+              >
+                <div
+                  className="reviews__user user"
+                >
+                  <div
+                    className="reviews__avatar-wrapper user__avatar-wrapper"
+                  >
+                    <img
+                      alt="Reviews avatar"
+                      className="reviews__avatar user__avatar"
+                      height="54"
+                      src="img/avatar-max.jpg"
+                      width="54"
+                    />
+                  </div>
+                  <span
+                    className="reviews__user-name"
+                  >
+                    Angelina
+                  </span>
+                </div>
+                <div
+                  className="reviews__info"
+                >
+                  <div
+                    className="reviews__rating rating"
+                  >
+                    <div
+                      className="reviews__stars rating__stars"
+                    >
+                      <span
+                        style={
+                          Object {
+                            "width": "80%",
+                          }
+                        }
+                      />
+                      <span
+                        className="visually-hidden"
+                      >
+                        Rating
+                      </span>
+                    </div>
+                  </div>
+                  <p
+                    className="reviews__text"
+                  >
+                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                  </p>
+                  <time
+                    className="reviews__time"
+                    dateTime="2019-04-24"
+                  >
+                    April 2019
+                  </time>
+                </div>
+              </li>
               <li
                 className="reviews__item"
               >
@@ -367,6 +426,13 @@ exports[`Should OfferDetails render correctly 1`] = `
                     <div
                       className="reviews__stars rating__stars"
                     >
+                      <span
+                        style={
+                          Object {
+                            "width": "80%",
+                          }
+                        }
+                      />
                       <span
                         className="visually-hidden"
                       >
@@ -533,7 +599,16 @@ exports[`Should OfferDetails render correctly 1`] = `
       </div>
       <section
         className="property__map map"
-      />
+      >
+        <div
+          id="map"
+          style={
+            Object {
+              "height": "100%",
+            }
+          }
+        />
+      </section>
     </section>
     <div
       className="container"
