@@ -11,9 +11,9 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      step: -1
-    };
+    this.state = null;
+
+    this.offer = null;
 
     this._handleHeaderClick = this._handleHeaderClick.bind(this);
   }
@@ -22,6 +22,10 @@ class App extends PureComponent {
     this.setState({
       value: id,
     });
+
+    this.offer = this.props.currentOffers.find(
+        (property) => property.id === +id
+    );
   }
 
   _renderMainScreen() {
@@ -36,35 +40,43 @@ class App extends PureComponent {
     );
   }
 
-  _renderDetailsScreen(id) {
-    const offer = this.props.currentOffers[0].offers.find(
-        (property) => property.id === +id
-    );
-    return offer ? (
-      <Details
-        offer={offer}
-        location={this.props.currentOffers[0].location}
-        offers={this.props.currentOffers[0].offers}
-        onHeaderClick={this._handleHeaderClick}
-      />
-    ) : (
-      <Details to="/" />
-    );
+  _renderApp() {
+
+    if (this.state) {
+      return (
+        <Details
+          offerList={this.props.currentOffers}
+          offer={this.offer}
+        />
+      );
+    }
+
+    if (!this.state) {
+      return (
+        <Main
+          offerList={this.props.currentOffers}
+          cities={this.props.cities}
+          currentCity={this.props.currentCity}
+          onCityClick={this.props.onCityClick}
+          onBookmarkClick={this._handleHeaderClick}
+        />
+      );
+    }
+    return this.state;
   }
 
   render() {
-
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderMainScreen()}
+            {this._renderApp()}
           </Route>
-          <Route exact path="/detail/:id"
-            render={(routeProps) =>
-              this._renderDetailsScreen(routeProps.match.params.id)
-            }
-          />
+          <Route exact path="/details/:id">
+            <Details
+              offer={this.offer}
+            />
+          </Route>
         </Switch>
       </BrowserRouter>
     );

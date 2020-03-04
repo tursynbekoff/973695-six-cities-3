@@ -1,9 +1,12 @@
 import React from "react";
 import ReviewList from "../review-list/review-list.jsx";
-import offerList from "../mocks/offers-detail.js";
+import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
 
-const Details = () => {
+
+const Details = (props) => {
+  const {offer, offerList} = props;
+  const {price, description, type, reviews, coordinate} = offer;
 
   return (
     <div className="page">
@@ -61,11 +64,11 @@ const Details = () => {
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                                        Beautiful &amp; luxurious studio at great location
+                  {description}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
-
+                    <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
@@ -79,7 +82,7 @@ const Details = () => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                                        Apartment
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                                         3 Bedrooms
@@ -89,7 +92,7 @@ const Details = () => {
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
@@ -152,7 +155,7 @@ const Details = () => {
               </div>
               <section className="property__reviews reviews">
                 <ReviewList
-                  offerList={offerList}
+                  reviews={reviews}
                 />
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -217,9 +220,9 @@ const Details = () => {
           </div>
           <section className="property__map map">
 
-            <Map
+            {/* <Map
               offerList={offerList}
-            />
+            /> */}
           </section>
         </section>
         <div className="container">
@@ -330,6 +333,16 @@ const Details = () => {
       </main>
     </div>
   );
+};
+
+Details.propTypes = {
+
+  offerList: PropTypes.array.isRequired,
+  offer: PropTypes.object.isRequired,
+  cities: PropTypes.array.isRequired,
+  onCityClick: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired
+
 };
 
 

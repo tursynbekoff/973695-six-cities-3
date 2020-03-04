@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Card = (props) => {
   const {offerCard, onBookmarkClick} = props;
-  const {price, description, type} = offerCard;
+  const {id, price, description, type} = offerCard;
 
   return (
     <article className="cities__place-card place-card">
@@ -22,7 +22,9 @@ const Card = (props) => {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            onClick={onBookmarkClick}
+            onClick={() => {
+              onBookmarkClick(id);
+            }}
             className="place-card__bookmark-button button"
             type="button"
           >
@@ -51,6 +53,7 @@ const Card = (props) => {
 
 Card.propTypes = {
   offerCard: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     price: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

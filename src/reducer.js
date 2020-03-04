@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state,
-          {city: action.payload});
+          {currentCity: action.payload});
 
     case ActionType.GET_OFFERS:
       return Object.assign({}, state,

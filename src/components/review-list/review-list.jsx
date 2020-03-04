@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import Review from "../review/review.jsx";
 
 const ReviewList = (props) => {
-  const {offerList} = props;
-  const object = offerList[2];
-  const {reviews} = object;
+  const {reviews} = props;
 
   const reviewMarkup = reviews.map((review, index) => {
     return (<Review
@@ -28,14 +26,10 @@ const ReviewList = (props) => {
 
 
 ReviewList.propTypes = {
-  offerList: PropTypes.arrayOf(
+  reviews: PropTypes.arrayOf(
       PropTypes.shape({
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              name: PropTypes.string.isRequired,
-              review: PropTypes.string.isRequired
-            })
-        )
+        name: PropTypes.string.isRequired,
+        review: PropTypes.string.isRequired
       })
   )
 };
