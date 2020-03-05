@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Review = (props) => {
-  const {reviews} = props;
-  const {name, review} = reviews;
+  const {
+    reviews: {
+      name,
+      review
+    }
+  } = props;
 
   return (
     <li className="reviews__item">
@@ -32,11 +36,10 @@ const Review = (props) => {
 };
 
 Review.propTypes = {
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        review: PropTypes.string.isRequired
-      })).isRequired
+  reviews: PropTypes.shape({
+    name: PropTypes.string,
+    review: PropTypes.string
+  })
 };
 
 export default Review;

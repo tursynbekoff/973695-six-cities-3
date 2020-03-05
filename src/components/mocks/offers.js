@@ -75,7 +75,37 @@ export default [
     reviews: [
       {
         name: `Max`,
-        review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+        review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Paris. The building is green and from 18th century.`
+      }
+    ]
+  }, {
+    id: 6,
+    price: `100`,
+    description: `Luxary apparment near HBF`,
+    type: `Apartment`,
+    coordinate: [53.54932, 10.01654],
+    location: {
+      city: `Hamburg`
+    },
+    reviews: [
+      {
+        name: `Misha`,
+        review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Hamburg. The building is green and from 18th century.`
+      }
+    ]
+  }, {
+    id: 7,
+    price: `65`,
+    description: `Hrushevka near Reeperbahn red light disctrict neighbourhood`,
+    type: `Private room`,
+    coordinate: [53.5499012, 9.9566384],
+    location: {
+      city: `Hamburg`
+    },
+    reviews: [
+      {
+        name: `Kolja`,
+        review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Hamburg. The building is green and from 18th century.`
       }
     ]
   }

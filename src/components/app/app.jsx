@@ -6,15 +6,12 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 
-
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = null;
-
     this.offer = null;
-
     this._handleHeaderClick = this._handleHeaderClick.bind(this);
   }
 
@@ -40,27 +37,22 @@ class App extends PureComponent {
     );
   }
 
+  _renderDetailScreen() {
+    return (
+      <Details
+        offerList={this.props.currentOffers}
+        cities={this.props.cities}
+        currentCity={this.props.currentCity}
+        offer={this.offer}
+      />
+    );
+  }
+
   _renderApp() {
-
     if (this.state) {
-      return (
-        <Details
-          offerList={this.props.currentOffers}
-          offer={this.offer}
-        />
-      );
-    }
-
-    if (!this.state) {
-      return (
-        <Main
-          offerList={this.props.currentOffers}
-          cities={this.props.cities}
-          currentCity={this.props.currentCity}
-          onCityClick={this.props.onCityClick}
-          onBookmarkClick={this._handleHeaderClick}
-        />
-      );
+      return this._renderDetailScreen();
+    } else if (!this.state) {
+      return this._renderMainScreen();
     }
     return this.state;
   }
@@ -81,16 +73,13 @@ class App extends PureComponent {
       </BrowserRouter>
     );
   }
-
 }
 
 App.propTypes = {
-
   currentOffers: PropTypes.array.isRequired,
   cities: PropTypes.array.isRequired,
   onCityClick: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired
-
 };
 
 const mapStateToProps = (state) => ({

@@ -73,8 +73,8 @@ Map.propTypes = {
       PropTypes.shape({
         coordinate: PropTypes.arrayOf(PropTypes.number.isRequired)
       })).isRequired,
-  cities: PropTypes.array.isRequired,
-  currentCity: PropTypes.string.isRequired,
+  cities: PropTypes.array,
+  currentCity: PropTypes.string,
 
 };
 

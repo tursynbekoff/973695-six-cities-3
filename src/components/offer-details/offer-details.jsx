@@ -3,10 +3,11 @@ import ReviewList from "../review-list/review-list.jsx";
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
 
-
 const Details = (props) => {
-  const {offer, offerList} = props;
-  const {price, description, type, reviews, coordinate} = offer;
+  const {offer, offerList, cities, currentCity} = props;
+  const {id, price, description, type, reviews} = offer;
+
+  const filteredList = offerList.filter((offerItem) => offerItem.id !== id);
 
   return (
     <div className="page">
@@ -220,9 +221,11 @@ const Details = (props) => {
           </div>
           <section className="property__map map">
 
-            {/* <Map
-              offerList={offerList}
-            /> */}
+            <Map
+              cities={cities}
+              currentCity={currentCity}
+              offerList={filteredList}
+            />
           </section>
         </section>
         <div className="container">
@@ -336,14 +339,11 @@ const Details = (props) => {
 };
 
 Details.propTypes = {
-
-  offerList: PropTypes.array.isRequired,
-  offer: PropTypes.object.isRequired,
-  cities: PropTypes.array.isRequired,
-  onCityClick: PropTypes.func.isRequired,
-  currentCity: PropTypes.string.isRequired
-
+  cities: PropTypes.array,
+  currentCity: PropTypes.string,
+  offer: PropTypes.object,
+  offerList: PropTypes.array,
+  reviews: PropTypes.array,
 };
-
 
 export default Details;

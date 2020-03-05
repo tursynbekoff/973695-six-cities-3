@@ -21,6 +21,6 @@ export const CityCoordinates = {
   Cologne: [50.93333, 6.95],
   Brussels: [50.85045, 4.34878],
   Amsterdam: [52.38333, 4.9],
-  Hamburg: [53.57532, 10.01534],
+  Hamburg: [53.55532, 10.01534],
   Dusseldorf: [51.22172, 6.77616],
 };

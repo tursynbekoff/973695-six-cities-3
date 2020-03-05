@@ -6,10 +6,11 @@ const ReviewList = (props) => {
   const {reviews} = props;
 
   const reviewMarkup = reviews.map((review, index) => {
-    return (<Review
-      key={index}
-      reviews={review}
-    />);
+    return (
+      <Review
+        key={index}
+        reviews={review}
+      />);
   });
 
   return (
@@ -26,12 +27,7 @@ const ReviewList = (props) => {
 
 
 ReviewList.propTypes = {
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        review: PropTypes.string.isRequired
-      })
-  )
+  reviews: PropTypes.array
 };
 
 export default ReviewList;

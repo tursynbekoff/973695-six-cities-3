@@ -99,9 +99,9 @@ Main.propTypes = {
         coordinate: PropTypes.arrayOf(PropTypes.number.isRequired)
       })).isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
-  cities: PropTypes.array.isRequired,
-  onCityClick: PropTypes.func.isRequired,
-  currentCity: PropTypes.string.isRequired
+  cities: PropTypes.array,
+  onCityClick: PropTypes.func,
+  currentCity: PropTypes.string
 };
 
 export default Main;
