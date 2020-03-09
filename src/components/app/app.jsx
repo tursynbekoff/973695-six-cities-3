@@ -48,13 +48,8 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderMainScreen()}
           </Route>
-          <Route>
-            <Details
-              offerList={this.props.currentOffers}
-              cities={this.props.cities}
-              currentCity={this.props.currentCity}
-              offer={this.props.offerScreen}
-            />
+          <Route >
+            {this._renderDetailScreen(this.props.offerScreen)}
           </Route>
         </Switch>
       </BrowserRouter>
