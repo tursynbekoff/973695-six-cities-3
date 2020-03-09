@@ -121,7 +121,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
     currentCity: City.AMSTERDAM,
     offers,
     currentOffers: getOffersByCity(City.AMSTERDAM, offers),
-    cities: CITIES
+    cities: CITIES,
+    offerScreen: false,
   });
 });
 
@@ -133,7 +134,7 @@ it(`Reducer should change current city by a given value`, () => {
             currentCity: City.AMSTERDAM,
             offers,
             currentOffers: getOffersByCity(City.AMSTERDAM, offers),
-            cities: CITIES
+            cities: CITIES,
           },
           {
             type: ActionType.CHANGE_CITY,

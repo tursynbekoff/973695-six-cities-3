@@ -341,7 +341,7 @@ const Details = (props) => {
 Details.propTypes = {
   cities: PropTypes.array,
   currentCity: PropTypes.string,
-  offer: PropTypes.object,
+  offer: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   offerList: PropTypes.array,
   reviews: PropTypes.array,
 };

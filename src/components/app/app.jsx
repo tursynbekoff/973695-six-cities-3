@@ -7,54 +7,38 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = null;
-    this.offer = null;
-    this._handleHeaderClick = this._handleHeaderClick.bind(this);
-  }
-
-  _handleHeaderClick(id) {
-    this.setState({
-      value: id,
-    });
-
-    this.offer = this.props.currentOffers.find(
-        (property) => property.id === +id
-    );
-  }
 
   _renderMainScreen() {
-    return (
-      <Main
-        offerList={this.props.currentOffers}
-        cities={this.props.cities}
-        currentCity={this.props.currentCity}
-        onCityClick={this.props.onCityClick}
-        onBookmarkClick={this._handleHeaderClick}
-      />
-    );
+
+    if (!this.props.offerScreen) {
+      return (
+        <Main
+          offerList={this.props.currentOffers}
+          cities={this.props.cities}
+          currentCity={this.props.currentCity}
+          onCityClick={this.props.onCityClick}
+          onBookmarkClick={this.props.onBookmarkClick}
+        />
+      );
+    } else if (this.props.offerScreen) {
+      return this._renderDetailScreen(this.props.offerScreen);
+    }
+
+    return null;
   }
 
-  _renderDetailScreen() {
+  _renderDetailScreen(id) {
+    this.offerObj = this.props.currentOffers.find(
+        (offerDetail) => offerDetail.id === +id
+    );
     return (
       <Details
         offerList={this.props.currentOffers}
         cities={this.props.cities}
         currentCity={this.props.currentCity}
-        offer={this.offer}
+        offer={this.offerObj}
       />
     );
-  }
-
-  _renderApp() {
-    if (this.state) {
-      return this._renderDetailScreen();
-    } else if (!this.state) {
-      return this._renderMainScreen();
-    }
-    return this.state;
   }
 
   render() {
@@ -62,11 +46,14 @@ class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderApp()}
+            {this._renderMainScreen()}
           </Route>
-          <Route exact path="/details/:id">
+          <Route>
             <Details
-              offer={this.offer}
+              offerList={this.props.currentOffers}
+              cities={this.props.cities}
+              currentCity={this.props.currentCity}
+              offer={this.props.offerScreen}
             />
           </Route>
         </Switch>
@@ -79,7 +66,9 @@ App.propTypes = {
   currentOffers: PropTypes.array.isRequired,
   cities: PropTypes.array.isRequired,
   onCityClick: PropTypes.func.isRequired,
-  currentCity: PropTypes.string.isRequired
+  onBookmarkClick: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired,
+  offerScreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 };
 
 const mapStateToProps = (state) => ({
@@ -87,6 +76,7 @@ const mapStateToProps = (state) => ({
   offers: state.offers,
   currentOffers: state.currentOffers,
   cities: state.cities,
+  offerScreen: state.offerScreen,
 });
 
 
@@ -96,6 +86,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(city));
     dispatch(ActionCreator.getOffers(city));
   },
+  onBookmarkClick(offerId) {
+    dispatch(ActionCreator.changeOfferScreen(offerId));
+  }
 });
 
 export {App};

@@ -36,10 +36,13 @@ const Review = (props) => {
 };
 
 Review.propTypes = {
-  reviews: PropTypes.shape({
-    name: PropTypes.string,
-    review: PropTypes.string
-  })
+  reviews: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.shape({
+      name: PropTypes.string,
+      review: PropTypes.string
+    })
+  ]).isRequired,
 };
 
 export default Review;

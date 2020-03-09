@@ -7,12 +7,14 @@ const initialState = {
   currentCity: City.AMSTERDAM,
   offers,
   currentOffers: getOffersByCity(City.AMSTERDAM, offers),
-  cities: CITIES
+  cities: CITIES,
+  offerScreen: false
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_OFFERS: `GET_OFFERS`
+  GET_OFFERS: `GET_OFFERS`,
+  CHANGE_OFFER_SCREEN: `CHANGE_OFFER_SCREEN`
 };
 
 const ActionCreator = {
@@ -23,7 +25,11 @@ const ActionCreator = {
   getOffers: (city) => ({
     type: ActionType.GET_OFFERS,
     payload: city
-  })
+  }),
+  changeOfferScreen: (offerId) => ({
+    type: ActionType.CHANGE_OFFER_SCREEN,
+    payload: offerId
+  }),
 
 };
 
@@ -37,7 +43,13 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_OFFERS:
       return Object.assign({}, state,
           {currentOffers: getOffersByCity(action.payload, state.offers)});
+
+    case ActionType.CHANGE_OFFER_SCREEN:
+      return Object.assign({}, state,
+          {offerScreen: action.payload});
   }
+
+
   return state;
 };
 
