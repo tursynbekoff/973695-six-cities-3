@@ -1,4 +1,9 @@
-export default [
+import {reducer, ActionCreator, ActionType} from "./reducer.js";
+import {getOffersByCity} from "./utils.js";
+import {City} from "./const.js";
+import {CITIES} from "./const.js";
+
+const offers = [
   {
     id: 1,
     price: `60`,
@@ -110,3 +115,52 @@ export default [
     ]
   }
 ];
+
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    currentCity: City.AMSTERDAM,
+    offers,
+    currentOffers: getOffersByCity(City.AMSTERDAM, offers),
+    cities: CITIES,
+    offerScreen: false,
+  });
+});
+
+
+it(`Reducer should change current city by a given value`, () => {
+  expect(
+      reducer(
+          {
+            currentCity: City.AMSTERDAM,
+            offers,
+            currentOffers: getOffersByCity(City.AMSTERDAM, offers),
+            cities: CITIES,
+          },
+          {
+            type: ActionType.CHANGE_CITY,
+            payload: `Hamburg`,
+          }
+      )
+  ).toEqual({
+    currentCity: City.HAMBURG,
+    offers,
+    currentOffers: getOffersByCity(City.AMSTERDAM, offers),
+    cities: CITIES
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for changing city returns correct action`, () => {
+    expect(ActionCreator.changeCity(`Paris`)).toEqual({
+      type: ActionType.CHANGE_CITY,
+      payload: City.PARIS,
+    });
+  });
+
+  it(`Action creator for getting offers returns correct action`, () => {
+    expect(ActionCreator.getOffers(`Paris`)).toEqual({
+      type: ActionType.GET_OFFERS,
+      payload: City.PARIS,
+    });
+  });
+});

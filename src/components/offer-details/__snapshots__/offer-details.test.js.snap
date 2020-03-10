@@ -144,7 +144,7 @@ exports[`Should OfferDetails render correctly 1`] = `
             <h1
               className="property__name"
             >
-              Beautiful & luxurious studio at great location
+              Beautiful & luxurious apartment at great location
             </h1>
             <button
               className="property__bookmark-button button"
@@ -154,7 +154,11 @@ exports[`Should OfferDetails render correctly 1`] = `
                 className="property__bookmark-icon"
                 height="33"
                 width="31"
-              />
+              >
+                <use
+                  xlinkHref="#icon-bookmark"
+                />
+              </svg>
               <span
                 className="visually-hidden"
               >
@@ -205,7 +209,8 @@ exports[`Should OfferDetails render correctly 1`] = `
             <b
               className="property__price-value"
             >
-              €120
+              €
+              130
             </b>
             <span
               className="property__price-text"
@@ -329,7 +334,7 @@ exports[`Should OfferDetails render correctly 1`] = `
               <span
                 className="reviews__amount"
               >
-                2
+                1
               </span>
             </h2>
             <ul
@@ -385,65 +390,6 @@ exports[`Should OfferDetails render correctly 1`] = `
                     className="reviews__text"
                   >
                     An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
-                  <time
-                    className="reviews__time"
-                    dateTime="2019-04-24"
-                  >
-                    April 2019
-                  </time>
-                </div>
-              </li>
-              <li
-                className="reviews__item"
-              >
-                <div
-                  className="reviews__user user"
-                >
-                  <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
-                  >
-                    <img
-                      alt="Reviews avatar"
-                      className="reviews__avatar user__avatar"
-                      height="54"
-                      src="img/avatar-max.jpg"
-                      width="54"
-                    />
-                  </div>
-                  <span
-                    className="reviews__user-name"
-                  >
-                    Max
-                  </span>
-                </div>
-                <div
-                  className="reviews__info"
-                >
-                  <div
-                    className="reviews__rating rating"
-                  >
-                    <div
-                      className="reviews__stars rating__stars"
-                    >
-                      <span
-                        style={
-                          Object {
-                            "width": "80%",
-                          }
-                        }
-                      />
-                      <span
-                        className="visually-hidden"
-                      >
-                        Rating
-                      </span>
-                    </div>
-                  </div>
-                  <p
-                    className="reviews__text"
-                  >
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
                   </p>
                   <time
                     className="reviews__time"
