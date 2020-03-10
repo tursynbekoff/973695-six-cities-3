@@ -3,20 +3,45 @@ import PropTypes from "prop-types";
 import Card from "../offer-card/offer-card.jsx";
 
 const OfferList = (props) => {
-  const {offerList, onBookmarkClick} = props;
+  const {offerList, onBookmarkClick, currentSortValue, onHoverActiveMapPin, onHoverDisableMapPin} = props;
 
-  const offers = offerList.map((offer, index) => {
-    return (
-      <Card
-        offerCard={offer}
-        onBookmarkClick={onBookmarkClick}
-        key={index}
-      />);
-  });
+  let offers = offerList.slice();
+
+  if (currentSortValue === `Popular`) {
+    offers = offerList.slice();
+  }
+
+  if (currentSortValue === `Price: high to low`) {
+    offers = offers.sort(function (a, b) {
+      return b.price - a.price;
+    });
+  }
+
+  if (currentSortValue === `Price: low to high`) {
+    offers = offers.sort(function (a, b) {
+      return a.price - b.price;
+    });
+  }
+
+  if (currentSortValue === `Top rated first`) {
+    offers = offers.sort(function (a, b) {
+      return b.rating - a.rating;
+    });
+  }
+
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers}
+      {offers.map((offer, index) => {
+        return (
+          <Card
+            offerCard={offer}
+            onBookmarkClick={onBookmarkClick}
+            key={index}
+            onHoverActiveMapPin={onHoverActiveMapPin}
+            onHoverDisableMapPin={onHoverDisableMapPin}
+          />);
+      })}
     </div>
   );
 };
@@ -24,11 +49,14 @@ const OfferList = (props) => {
 OfferList.propTypes = {
   offerList: PropTypes.arrayOf(
       PropTypes.shape({
-        price: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
       })),
-  onBookmarkClick: PropTypes.func.isRequired
+  onBookmarkClick: PropTypes.func.isRequired,
+  currentSortValue: PropTypes.string.isRequired,
+  onHoverActiveMapPin: PropTypes.func.isRequired,
+  onHoverDisableMapPin: PropTypes.func.isRequired,
 };
 
 export default OfferList;

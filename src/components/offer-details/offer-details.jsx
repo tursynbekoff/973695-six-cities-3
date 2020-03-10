@@ -5,7 +5,7 @@ import Map from "../map/map.jsx";
 
 const Details = (props) => {
   const {offer, offerList, cities, currentCity} = props;
-  const {id, price, description, type, reviews} = offer;
+  const {id, price, description, type, reviews, rating} = offer;
 
   const filteredList = offerList.filter((offerItem) => offerItem.id !== id);
 
@@ -76,10 +76,10 @@ const Details = (props) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-
+                  <span style={{width: `${(rating / 5) * 100}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
@@ -344,6 +344,7 @@ Details.propTypes = {
   offer: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   offerList: PropTypes.array,
   reviews: PropTypes.array,
+  rating: PropTypes.number,
 };
 
 export default Details;

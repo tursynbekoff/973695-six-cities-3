@@ -8,13 +8,19 @@ const initialState = {
   offers,
   currentOffers: getOffersByCity(City.AMSTERDAM, offers),
   cities: CITIES,
-  offerScreen: false
+  offerScreen: false,
+  currentSortValue: `Popular`,
+  activeMapPin: false,
+  disabledMapPin: false,
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFERS: `GET_OFFERS`,
-  CHANGE_OFFER_SCREEN: `CHANGE_OFFER_SCREEN`
+  CHANGE_OFFER_SCREEN: `CHANGE_OFFER_SCREEN`,
+  CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
+  ACTIVATE_MAP_PIN: `ACTIVATE_MAP_PIN`,
+  DISABLE_MAP_PIN: `DISABLE_MAP_PIN`,
 };
 
 const ActionCreator = {
@@ -30,7 +36,18 @@ const ActionCreator = {
     type: ActionType.CHANGE_OFFER_SCREEN,
     payload: offerId
   }),
-
+  changeSortType: (sortType) => ({
+    type: ActionType.CHANGE_SORT_TYPE,
+    payload: sortType
+  }),
+  activateMapPin: (activeMapPin) => ({
+    type: ActionType.ACTIVATE_MAP_PIN,
+    payload: activeMapPin
+  }),
+  disableMapPin: (disabledMapPin) => ({
+    type: ActionType.DISABLE_MAP_PIN,
+    payload: disabledMapPin
+  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +64,17 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_OFFER_SCREEN:
       return Object.assign({}, state,
           {offerScreen: action.payload});
+
+    case ActionType.CHANGE_SORT_TYPE:
+      return Object.assign({}, state,
+          {currentSortValue: action.payload});
+
+    case ActionType.ACTIVATE_MAP_PIN:
+      return Object.assign({}, state,
+          {activeMapPin: action.payload});
+    case ActionType.DISABLE_MAP_PIN:
+      return Object.assign({}, state,
+          {disabledMapPin: action.payload});
   }
 
 

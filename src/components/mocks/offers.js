@@ -1,7 +1,8 @@
 export default [
   {
     id: 1,
-    price: `60`,
+    price: 60,
+    rating: 3.3,
     description: `Wood and stone place`,
     type: `Private room`,
     coordinate: [52.3909553943508, 4.85309666406198],
@@ -16,7 +17,8 @@ export default [
     ]
   }, {
     id: 2,
-    price: `130`,
+    price: 130,
+    rating: 4.4,
     description: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
     coordinate: [52.369553943508, 4.85309666406198],
@@ -31,7 +33,8 @@ export default [
     ]
   }, {
     id: 3,
-    price: `80`,
+    price: 80,
+    rating: 2.5,
     description: `Canal View Prinsengracht`,
     type: `Private room`,
     coordinate: [52.3909553943508, 4.929309666406198],
@@ -50,7 +53,8 @@ export default [
     ]
   }, {
     id: 4,
-    price: `120`,
+    price: 120,
+    rating: 4.8,
     description: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
     coordinate: [52.3809553943508, 4.939309666406198],
@@ -65,7 +69,8 @@ export default [
     ]
   }, {
     id: 5,
-    price: `60`,
+    price: 60,
+    rating: 3.1,
     description: `Wood and stone place`,
     type: `Private room`,
     coordinate: [48.8536632, 2.3488556],
@@ -80,7 +85,8 @@ export default [
     ]
   }, {
     id: 6,
-    price: `100`,
+    price: 100,
+    rating: 4.7,
     description: `Luxary apparment near HBF`,
     type: `Apartment`,
     coordinate: [53.54932, 10.01654],
@@ -95,7 +101,8 @@ export default [
     ]
   }, {
     id: 7,
-    price: `65`,
+    price: 65,
+    rating: 3.7,
     description: `Hrushevka near Reeperbahn red light disctrict neighbourhood`,
     type: `Private room`,
     coordinate: [53.5499012, 9.9566384],

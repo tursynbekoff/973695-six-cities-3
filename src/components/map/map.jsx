@@ -3,13 +3,18 @@ import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import {CityCoordinates} from "../../const.js";
 
-// const city = [52.38333, 4.9];
 const zoom = 12;
 
 const icon = leaflet.icon({
   iconUrl: `/img/pin.svg`,
   iconSize: [20, 30]
 });
+
+const activeIcon = leaflet.icon({
+  iconUrl: `/img/pin-active.svg`,
+  iconSize: [20, 30]
+});
+
 class Map extends PureComponent {
   constructor(props) {
     super(props);
@@ -39,15 +44,33 @@ class Map extends PureComponent {
 
   pinRerender() {
     this.props.offerList.map((it) => {
+      if (it.id === this.props.activeMapPin) {
+        leaflet.marker(it.coordinate, {activeIcon}).addTo(this.map);
+        console.log(it.id);
+        return false;
+      }
       leaflet.marker(it.coordinate, {icon}).addTo(this.map);
+      console.log(it.id);
+      return true;
     });
   }
 
   componentWillUnmount() {
     this.map.current = null;
+    // this.map.removeLayer();
+    // this.map.removeControl();
   }
 
   componentDidUpdate(prevProps) {
+
+    if (this.props.activeMapPin) {
+      this.componentWillUnmount();
+      this.pinRerender();
+    }
+    // if (this.props.disabledMapPin) {
+    //   this.componentWillUnmount();
+    //   this.pinRerender();
+    // }
 
     if (
       this.props.currentCity !== prevProps.currentCity
@@ -55,6 +78,8 @@ class Map extends PureComponent {
       this.map.setView(CityCoordinates[this.props.currentCity], this.zoom);
       this.pinRerender();
     }
+
+    // console.log(this.props.activeMapPin);
   }
 
   render() {
@@ -75,6 +100,8 @@ Map.propTypes = {
       })).isRequired,
   cities: PropTypes.array,
   currentCity: PropTypes.string,
+  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+  disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
 
 };
 

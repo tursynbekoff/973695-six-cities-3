@@ -18,6 +18,12 @@ class App extends PureComponent {
           currentCity={this.props.currentCity}
           onCityClick={this.props.onCityClick}
           onBookmarkClick={this.props.onBookmarkClick}
+          currentSortValue={this.props.currentSortValue}
+          onSortTypeClick={this.props.onSortTypeClick}
+          onHoverActiveMapPin={this.props.onHoverActiveMapPin}
+          activeMapPin={this.props.activeMapPin}
+          onHoverDisableMapPin={this.props.onHoverDisableMapPin}
+          disabledMapPin={this.props.disabledMapPin}
         />
       );
     } else if (this.props.offerScreen) {
@@ -64,6 +70,12 @@ App.propTypes = {
   onBookmarkClick: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired,
   offerScreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  currentSortValue: PropTypes.string.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired,
+  onHoverActiveMapPin: PropTypes.func.isRequired,
+  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+  onHoverDisableMapPin: PropTypes.func.isRequired,
+  disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -72,6 +84,9 @@ const mapStateToProps = (state) => ({
   currentOffers: state.currentOffers,
   cities: state.cities,
   offerScreen: state.offerScreen,
+  currentSortValue: state.currentSortValue,
+  activeMapPin: state.activeMapPin,
+  disabledMapPin: state.disabledMapPin,
 });
 
 
@@ -83,6 +98,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onBookmarkClick(offerId) {
     dispatch(ActionCreator.changeOfferScreen(offerId));
+  },
+  onSortTypeClick(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
+  },
+  onHoverActiveMapPin(cardId) {
+    dispatch(ActionCreator.activateMapPin(cardId));
+  },
+  onHoverDisableMapPin(cardId) {
+    dispatch(ActionCreator.disableMapPin(cardId));
   }
 });
 

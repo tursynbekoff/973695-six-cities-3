@@ -24,3 +24,10 @@ export const CityCoordinates = {
   Hamburg: [53.55532, 10.01534],
   Dusseldorf: [51.22172, 6.77616],
 };
+
+export const SortType = {
+  POPULAR: `Popular`,
+  PRICE_LOW_TO_HIGH: `Price: low to high`,
+  PRICE_HIGH_TO_LOW: `Price: high to low`,
+  TOP_RATED: `Top rated first`,
+};

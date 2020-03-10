@@ -2,11 +2,20 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 const Card = (props) => {
-  const {offerCard, onBookmarkClick} = props;
-  const {id, price, description, type} = offerCard;
+  const {offerCard, onBookmarkClick, onHoverActiveMapPin, onHoverDisableMapPin} = props;
+  const {id, price, description, type, rating} = offerCard;
 
   return (
-    <article className="cities__place-card place-card">
+    <article
+      className="cities__place-card place-card"
+      onMouseEnter={() => {
+        onHoverActiveMapPin(id);
+      }}
+      onMouseLeave={() => {
+        onHoverDisableMapPin(id);
+      }}
+
+    >
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -37,10 +46,13 @@ const Card = (props) => {
           </button>
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
 
+
+          <div className="place-card__stars rating__stars">
+            <span style={{width: `${(rating / 5) * 100}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
+
         </div>
         <h2 className="place-card__name">
           <a href="#">{description}</a>
@@ -54,11 +66,14 @@ const Card = (props) => {
 Card.propTypes = {
   offerCard: PropTypes.shape({
     id: PropTypes.number,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    rating: PropTypes.number,
   }),
-  onBookmarkClick: PropTypes.func.isRequired
+  onBookmarkClick: PropTypes.func.isRequired,
+  onHoverActiveMapPin: PropTypes.func.isRequired,
+  onHoverDisableMapPin: PropTypes.func.isRequired,
 };
 
 export default Card;
