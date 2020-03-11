@@ -40,13 +40,13 @@ const ActionCreator = {
     type: ActionType.CHANGE_SORT_TYPE,
     payload: sortType
   }),
-  activateMapPin: (activeMapPin) => ({
+  activateMapPin: (mapPin) => ({
     type: ActionType.ACTIVATE_MAP_PIN,
-    payload: activeMapPin
+    payload: mapPin
   }),
-  disableMapPin: (disabledMapPin) => ({
+  disableMapPin: (mapPin) => ({
     type: ActionType.DISABLE_MAP_PIN,
-    payload: disabledMapPin
+    payload: mapPin
   }),
 };
 
@@ -72,6 +72,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.ACTIVATE_MAP_PIN:
       return Object.assign({}, state,
           {activeMapPin: action.payload});
+
     case ActionType.DISABLE_MAP_PIN:
       return Object.assign({}, state,
           {disabledMapPin: action.payload});

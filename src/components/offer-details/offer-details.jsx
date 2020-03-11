@@ -4,8 +4,23 @@ import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
 
 const Details = (props) => {
-  const {offer, offerList, cities, currentCity} = props;
-  const {id, price, description, type, reviews, rating} = offer;
+  const {
+    offer,
+    offerList,
+    cities,
+    currentCity,
+    activeMapPin,
+    disabledMapPin
+  } = props;
+
+  const {
+    id,
+    price,
+    description,
+    type,
+    reviews,
+    rating
+  } = offer;
 
   const filteredList = offerList.filter((offerItem) => offerItem.id !== id);
 
@@ -225,6 +240,8 @@ const Details = (props) => {
               cities={cities}
               currentCity={currentCity}
               offerList={filteredList}
+              activeMapPin={activeMapPin}
+              disabledMapPin={disabledMapPin}
             />
           </section>
         </section>
@@ -339,12 +356,21 @@ const Details = (props) => {
 };
 
 Details.propTypes = {
-  cities: PropTypes.array,
-  currentCity: PropTypes.string,
-  offer: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  offerList: PropTypes.array,
-  reviews: PropTypes.array,
-  rating: PropTypes.number,
+  cities: PropTypes.array.isRequired,
+  currentCity: PropTypes.string.isRequired,
+  offer: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.shape({
+      rating: PropTypes.number,
+      id: PropTypes.number,
+      price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      description: PropTypes.string,
+      type: PropTypes.string,
+      reviews: PropTypes.array,
+    })
+  ]),
+  offerList: PropTypes.array.isRequired,
+  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+  disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
 };
 
 export default Details;

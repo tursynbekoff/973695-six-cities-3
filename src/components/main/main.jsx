@@ -34,6 +34,7 @@ class Main extends PureComponent {
       onHoverDisableMapPin,
       activeMapPin,
       disabledMapPin,
+      onHoverResetMapPin,
     } = this.props;
 
     const {isActive} = this.state;
@@ -95,6 +96,7 @@ class Main extends PureComponent {
                     onBookmarkClick={onBookmarkClick}
                     onHoverActiveMapPin={onHoverActiveMapPin}
                     onHoverDisableMapPin={onHoverDisableMapPin}
+                    onHoverResetMapPin={onHoverResetMapPin}
                   />
 
                 </div>
@@ -119,23 +121,18 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  offerList: PropTypes.arrayOf(
-      PropTypes.shape({
-        price: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        coordinate: PropTypes.arrayOf(PropTypes.number.isRequired)
-      })).isRequired,
+  offerList: PropTypes.array.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
-  cities: PropTypes.array,
-  onCityClick: PropTypes.func,
-  currentCity: PropTypes.string,
+  cities: PropTypes.array.isRequired,
+  onCityClick: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired,
   currentSortValue: PropTypes.string.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
   onHoverActiveMapPin: PropTypes.func.isRequired,
   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   onHoverDisableMapPin: PropTypes.func.isRequired,
   disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+  onHoverResetMapPin: PropTypes.func.isRequired,
 };
 
 export default Main;

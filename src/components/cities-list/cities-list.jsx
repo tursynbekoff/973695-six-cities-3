@@ -26,9 +26,9 @@ const CitiesList = (props) => {
 };
 
 CitiesList.propTypes = {
-  cities: PropTypes.array,
-  onCityClick: PropTypes.func,
-  currentCity: PropTypes.string
+  cities: PropTypes.array.isRequired,
+  onCityClick: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired,
 };
 
 export default CitiesList;

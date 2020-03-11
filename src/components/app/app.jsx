@@ -24,6 +24,7 @@ class App extends PureComponent {
           activeMapPin={this.props.activeMapPin}
           onHoverDisableMapPin={this.props.onHoverDisableMapPin}
           disabledMapPin={this.props.disabledMapPin}
+          onHoverResetMapPin={this.props.onHoverResetMapPin}
         />
       );
     } else if (this.props.offerScreen) {
@@ -43,6 +44,8 @@ class App extends PureComponent {
         cities={this.props.cities}
         currentCity={this.props.currentCity}
         offer={this.offerObj}
+        activeMapPin={this.props.activeMapPin}
+        disabledMapPin={this.props.disabledMapPin}
       />
     );
   }
@@ -54,7 +57,7 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderMainScreen()}
           </Route>
-          <Route >
+          <Route exact path="/details/">
             {this._renderDetailScreen(this.props.offerScreen)}
           </Route>
         </Switch>
@@ -69,13 +72,14 @@ App.propTypes = {
   onCityClick: PropTypes.func.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired,
-  offerScreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  offerScreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   currentSortValue: PropTypes.string.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
   onHoverActiveMapPin: PropTypes.func.isRequired,
   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   onHoverDisableMapPin: PropTypes.func.isRequired,
   disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+  onHoverResetMapPin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -107,7 +111,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onHoverDisableMapPin(cardId) {
     dispatch(ActionCreator.disableMapPin(cardId));
-  }
+  },
+  onHoverResetMapPin() {
+    dispatch(ActionCreator.activateMapPin(false));
+    dispatch(ActionCreator.disableMapPin(false));
+  },
 });
 
 export {App};

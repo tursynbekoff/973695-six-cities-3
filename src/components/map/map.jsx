@@ -5,22 +5,19 @@ import {CityCoordinates} from "../../const.js";
 
 const zoom = 12;
 
-const icon = leaflet.icon({
-  iconUrl: `/img/pin.svg`,
-  iconSize: [20, 30]
-});
-
-const activeIcon = leaflet.icon({
-  iconUrl: `/img/pin-active.svg`,
-  iconSize: [20, 30]
-});
-
 class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.props = props;
 
     this.mapRef = createRef();
+  }
+
+  getIcon(isActive) {
+    return leaflet.icon({
+      iconUrl: isActive ? `img/pin-active.svg` : `img/pin.svg`,
+      iconSize: [20, 30],
+    });
   }
 
   componentDidMount() {
@@ -39,47 +36,37 @@ class Map extends PureComponent {
           attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
         })
         .addTo(this.map);
-    this.pinRerender();
+    this._getMap();
   }
 
-  pinRerender() {
-    this.props.offerList.map((it) => {
-      if (it.id === this.props.activeMapPin) {
-        leaflet.marker(it.coordinate, {activeIcon}).addTo(this.map);
-        console.log(it.id);
-        return false;
-      }
-      leaflet.marker(it.coordinate, {icon}).addTo(this.map);
-      console.log(it.id);
-      return true;
+  _getMap() {
+    if (this.makersGroup) {
+      // this.markersGroup.removeLayer(this.mapRef.current);
+    }
+
+    this.makersGroup = leaflet.layerGroup().addTo(this.map);
+
+    this.props.offerList.forEach((it) => {
+      const isActive = (this.props.activeMapPin === it.id && !(this.props.disabledMapPin === it.id));
+
+      leaflet.marker(it.coordinate, {
+        icon: this.getIcon(isActive)
+      }).addTo(this.makersGroup);
     });
   }
 
   componentWillUnmount() {
-    this.map.current = null;
-    // this.map.removeLayer();
-    // this.map.removeControl();
+    this.map = null;
   }
 
   componentDidUpdate(prevProps) {
-
-    if (this.props.activeMapPin) {
-      this.componentWillUnmount();
-      this.pinRerender();
-    }
-    // if (this.props.disabledMapPin) {
-    //   this.componentWillUnmount();
-    //   this.pinRerender();
-    // }
 
     if (
       this.props.currentCity !== prevProps.currentCity
     ) {
       this.map.setView(CityCoordinates[this.props.currentCity], this.zoom);
-      this.pinRerender();
     }
-
-    // console.log(this.props.activeMapPin);
+    this._getMap();
   }
 
   render() {
@@ -98,8 +85,8 @@ Map.propTypes = {
       PropTypes.shape({
         coordinate: PropTypes.arrayOf(PropTypes.number.isRequired)
       })).isRequired,
-  cities: PropTypes.array,
-  currentCity: PropTypes.string,
+  cities: PropTypes.array.isRequired,
+  currentCity: PropTypes.string.isRequired,
   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
 

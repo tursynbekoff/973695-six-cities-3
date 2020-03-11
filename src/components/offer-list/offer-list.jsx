@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 import Card from "../offer-card/offer-card.jsx";
 
 const OfferList = (props) => {
-  const {offerList, onBookmarkClick, currentSortValue, onHoverActiveMapPin, onHoverDisableMapPin} = props;
+  const {
+    offerList,
+    onBookmarkClick,
+    currentSortValue,
+    onHoverActiveMapPin,
+    onHoverDisableMapPin,
+    onHoverResetMapPin,
+  } = props;
 
   let offers = offerList.slice();
 
@@ -40,6 +47,7 @@ const OfferList = (props) => {
             key={index}
             onHoverActiveMapPin={onHoverActiveMapPin}
             onHoverDisableMapPin={onHoverDisableMapPin}
+            onHoverResetMapPin={onHoverResetMapPin}
           />);
       })}
     </div>
@@ -47,16 +55,12 @@ const OfferList = (props) => {
 };
 
 OfferList.propTypes = {
-  offerList: PropTypes.arrayOf(
-      PropTypes.shape({
-        price: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      })),
+  offerList: PropTypes.array.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
   currentSortValue: PropTypes.string.isRequired,
   onHoverActiveMapPin: PropTypes.func.isRequired,
   onHoverDisableMapPin: PropTypes.func.isRequired,
+  onHoverResetMapPin: PropTypes.func.isRequired,
 };
 
 export default OfferList;

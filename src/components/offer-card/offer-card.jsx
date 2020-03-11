@@ -2,7 +2,13 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 const Card = (props) => {
-  const {offerCard, onBookmarkClick, onHoverActiveMapPin, onHoverDisableMapPin} = props;
+  const {
+    offerCard,
+    onBookmarkClick,
+    onHoverActiveMapPin,
+    onHoverDisableMapPin,
+    onHoverResetMapPin,
+  } = props;
   const {id, price, description, type, rating} = offerCard;
 
   return (
@@ -13,6 +19,7 @@ const Card = (props) => {
       }}
       onMouseLeave={() => {
         onHoverDisableMapPin(id);
+        onHoverResetMapPin();
       }}
 
     >
@@ -66,14 +73,15 @@ const Card = (props) => {
 Card.propTypes = {
   offerCard: PropTypes.shape({
     id: PropTypes.number,
-    price: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    description: PropTypes.string,
+    type: PropTypes.string,
     rating: PropTypes.number,
   }),
   onBookmarkClick: PropTypes.func.isRequired,
   onHoverActiveMapPin: PropTypes.func.isRequired,
   onHoverDisableMapPin: PropTypes.func.isRequired,
+  onHoverResetMapPin: PropTypes.func.isRequired,
 };
 
 export default Card;

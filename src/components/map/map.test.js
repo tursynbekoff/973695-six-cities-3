@@ -6,6 +6,7 @@ const offerList = [
   {
     id: 1,
     price: `60`,
+    rating: 3.3,
     description: `Wood and stone place`,
     type: `Private room`,
     coordinate: [52.3909553943508, 4.85309666406198],
@@ -21,6 +22,7 @@ const offerList = [
   }, {
     id: 2,
     price: `130`,
+    rating: 4.3,
     description: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
     coordinate: [52.369553943508, 4.85309666406198],
@@ -47,6 +49,9 @@ const cities = [
   `Dusseldorf`
 ];
 
+const activeMapPin = false;
+const disabledMapPin = false;
+
 it(`Render Map`, () => {
   const tree = renderer
       .create(
@@ -54,6 +59,8 @@ it(`Render Map`, () => {
             cities={cities}
             currentCity={currentCity}
             offerList={offerList}
+            activeMapPin={activeMapPin}
+            disabledMapPin={disabledMapPin}
           />, {
             createNodeMock: () => document.createElement(`div`)
           }

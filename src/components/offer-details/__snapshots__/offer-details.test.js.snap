@@ -173,6 +173,13 @@ exports[`Should OfferDetails render correctly 1`] = `
               className="property__stars rating__stars"
             >
               <span
+                style={
+                  Object {
+                    "width": "90%",
+                  }
+                }
+              />
+              <span
                 className="visually-hidden"
               >
                 Rating
@@ -181,7 +188,7 @@ exports[`Should OfferDetails render correctly 1`] = `
             <span
               className="property__rating-value rating__value"
             >
-              4.8
+              4.5
             </span>
           </div>
           <ul
