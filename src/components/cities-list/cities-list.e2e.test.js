@@ -18,10 +18,10 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should bookmark button be pressed`, () => {
+it(`Should onCityClick button be pressed`, () => {
   const onCityClick = jest.fn();
 
-  const mainScreen = shallow(
+  const CitiesListScreen = shallow(
       <CitiesList
         cities={cities}
         currentCity={currentCity}
@@ -29,7 +29,7 @@ it(`Should bookmark button be pressed`, () => {
       />
   );
 
-  const cityLink = mainScreen.find(`locations__item-link`);
+  const cityLink = CitiesListScreen.find(`locations__item-link`);
 
   cityLink.forEach((bookmarkButton) => {
     bookmarkButton.props().onClick();

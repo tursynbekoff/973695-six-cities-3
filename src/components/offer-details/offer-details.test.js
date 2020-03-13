@@ -6,6 +6,7 @@ const offerList = [
   {
     id: 1,
     price: `60`,
+    rating: 3.3,
     description: `Wood and stone place`,
     type: `Private room`,
     coordinate: [52.3909553943508, 4.85309666406198],
@@ -21,6 +22,7 @@ const offerList = [
   }, {
     id: 2,
     price: `130`,
+    rating: 4.3,
     description: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
     coordinate: [52.369553943508, 4.85309666406198],
@@ -39,6 +41,7 @@ const offerList = [
 const offer = {
   id: 2,
   price: `130`,
+  rating: 4.5,
   description: `Beautiful & luxurious apartment at great location`,
   type: `Apartment`,
   coordinate: [52.369553943508, 4.85309666406198],
@@ -64,18 +67,24 @@ const cities = [
   `Dusseldorf`
 ];
 
+const activeMapPin = false;
+const disabledMapPin = false;
+
 it(`Should OfferDetails render correctly`, () => {
 
   const tree = renderer
-    .create(<Details
-      cities={cities}
-      currentCity={currentCity}
-      offerList={offerList}
-      offer={offer}
-    />,
-    {
-      createNodeMock: () => document.createElement(`div`)
-    }
+    .create(
+        <Details
+          cities={cities}
+          currentCity={currentCity}
+          offerList={offerList}
+          offer={offer}
+          activeMapPin={activeMapPin}
+          disabledMapPin={disabledMapPin}
+        />,
+        {
+          createNodeMock: () => document.createElement(`div`)
+        }
     )
     .toJSON();
 

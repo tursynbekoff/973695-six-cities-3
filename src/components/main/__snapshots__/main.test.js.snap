@@ -181,10 +181,11 @@ exports[` Main render has problems 1`] = `
             <span
               className="places__sorting-caption"
             >
-              Sort by
+              Sort by 
             </span>
             <span
               className="places__sorting-type"
+              onClick={[Function]}
               tabIndex="0"
             >
               Popular
@@ -192,8 +193,45 @@ exports[` Main render has problems 1`] = `
                 className="places__sorting-arrow"
                 height="4"
                 width="7"
-              />
+              >
+                <use
+                  xlinkHref="#icon-arrow-select"
+                />
+              </svg>
             </span>
+            <ul
+              className="places__options places__options--custom "
+              onClick={[Function]}
+            >
+              <li
+                className="places__option  places__option--active"
+                onClick={[Function]}
+                tabIndex="0"
+              >
+                Popular
+              </li>
+              <li
+                className="places__option  "
+                onClick={[Function]}
+                tabIndex="0"
+              >
+                Price: low to high
+              </li>
+              <li
+                className="places__option  "
+                onClick={[Function]}
+                tabIndex="0"
+              >
+                Price: high to low
+              </li>
+              <li
+                className="places__option  "
+                onClick={[Function]}
+                tabIndex="0"
+              >
+                Top rated first
+              </li>
+            </ul>
           </form>
           <div
             className="cities__places-list places__list tabs__content"
@@ -203,6 +241,8 @@ exports[` Main render has problems 1`] = `
             >
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="place-card__mark"
@@ -280,6 +320,13 @@ exports[` Main render has problems 1`] = `
                       className="place-card__stars rating__stars"
                     >
                       <span
+                        style={
+                          Object {
+                            "width": "65.99999999999999%",
+                          }
+                        }
+                      />
+                      <span
                         className="visually-hidden"
                       >
                         Rating
@@ -304,6 +351,8 @@ exports[` Main render has problems 1`] = `
               </article>
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="place-card__mark"
@@ -380,6 +429,13 @@ exports[` Main render has problems 1`] = `
                     <div
                       className="place-card__stars rating__stars"
                     >
+                      <span
+                        style={
+                          Object {
+                            "width": "86%",
+                          }
+                        }
+                      />
                       <span
                         className="visually-hidden"
                       >
