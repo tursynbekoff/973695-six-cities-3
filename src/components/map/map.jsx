@@ -40,14 +40,11 @@ class Map extends PureComponent {
   }
 
   _getMap() {
-    if (this.makersGroup) {
-      // this.markersGroup.removeLayer(this.mapRef.current);
-    }
 
     this.makersGroup = leaflet.layerGroup().addTo(this.map);
 
     this.props.offerList.forEach((it) => {
-      const isActive = (this.props.activeMapPin === it.id && !(this.props.disabledMapPin === it.id));
+      const isActive = (this.props.activeMapPin === it.id);
 
       leaflet.marker(it.coordinate, {
         icon: this.getIcon(isActive)
@@ -88,7 +85,6 @@ Map.propTypes = {
   cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
-  disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
 
 };
 

@@ -20,11 +20,6 @@ class App extends PureComponent {
           onBookmarkClick={this.props.onBookmarkClick}
           currentSortValue={this.props.currentSortValue}
           onSortTypeClick={this.props.onSortTypeClick}
-          onHoverActiveMapPin={this.props.onHoverActiveMapPin}
-          activeMapPin={this.props.activeMapPin}
-          onHoverDisableMapPin={this.props.onHoverDisableMapPin}
-          disabledMapPin={this.props.disabledMapPin}
-          onHoverResetMapPin={this.props.onHoverResetMapPin}
         />
       );
     } else if (this.props.offerScreen) {
@@ -44,8 +39,6 @@ class App extends PureComponent {
         cities={this.props.cities}
         currentCity={this.props.currentCity}
         offer={this.offerObj}
-        activeMapPin={this.props.activeMapPin}
-        disabledMapPin={this.props.disabledMapPin}
       />
     );
   }
@@ -75,11 +68,6 @@ App.propTypes = {
   offerScreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   currentSortValue: PropTypes.string.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
-  onHoverActiveMapPin: PropTypes.func.isRequired,
-  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
-  onHoverDisableMapPin: PropTypes.func.isRequired,
-  disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
-  onHoverResetMapPin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -89,8 +77,6 @@ const mapStateToProps = (state) => ({
   cities: state.cities,
   offerScreen: state.offerScreen,
   currentSortValue: state.currentSortValue,
-  activeMapPin: state.activeMapPin,
-  disabledMapPin: state.disabledMapPin,
 });
 
 
@@ -105,16 +91,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortTypeClick(sortType) {
     dispatch(ActionCreator.changeSortType(sortType));
-  },
-  onHoverActiveMapPin(cardId) {
-    dispatch(ActionCreator.activateMapPin(cardId));
-  },
-  onHoverDisableMapPin(cardId) {
-    dispatch(ActionCreator.disableMapPin(cardId));
-  },
-  onHoverResetMapPin() {
-    dispatch(ActionCreator.activateMapPin(false));
-    dispatch(ActionCreator.disableMapPin(false));
   },
 });
 

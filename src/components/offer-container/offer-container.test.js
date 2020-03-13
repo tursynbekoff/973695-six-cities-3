@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import OfferContainer from "./offer-container.jsx";
 
 const offerList = [
   {
@@ -53,19 +53,23 @@ const currentSortValue = `Popular`;
 
 it(` Main render has problems`, () => {
   const onBookmarkClick = jest.fn();
-  const onCityClick = jest.fn();
   const onSortTypeClick = jest.fn();
+  const onHoverActiveMapPin = jest.fn();
+  const activeMapPin = false;
+  const onHoverResetMapPin = jest.fn();
 
   const tree = renderer
       .create(
-          <Main
-            cities={cities}
-            currentCity={currentCity}
-            onCityClick={onCityClick}
+          <OfferContainer
             offerList={offerList}
+            cities={cities}
             onBookmarkClick={onBookmarkClick}
+            currentCity={currentCity}
             currentSortValue={currentSortValue}
             onSortTypeClick={onSortTypeClick}
+            activeMapPin={activeMapPin}
+            onHoverActiveMapPin={onHoverActiveMapPin}
+            onHoverResetMapPin={onHoverResetMapPin}
           />, {
             createNodeMock: () => document.createElement(`div`)
           }

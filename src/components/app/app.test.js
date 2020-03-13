@@ -76,16 +76,13 @@ const initialState = {
   cities,
   offerScreen: false,
   currentSortValue: `Popular`,
-  activeMapPin: false,
-  disabledMapPin: false,
 };
 
 const reducer = (state = initialState) => {
   return state;
 };
 
-const activeMapPin = false;
-const disabledMapPin = false;
+
 const currentSortValue = `Popular`;
 const offerScreen = false;
 
@@ -102,8 +99,6 @@ it(`Render App`, () => {
               cities={cities}
               offerScreen={offerScreen}
               currentSortValue={currentSortValue}
-              activeMapPin={activeMapPin}
-              disabledMapPin={disabledMapPin}
               offer={offer}
             />
           </Provider>, {

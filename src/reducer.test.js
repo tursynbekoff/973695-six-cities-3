@@ -131,8 +131,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     cities: CITIES,
     offerScreen: false,
     currentSortValue: `Popular`,
-    activeMapPin: false,
-    disabledMapPin: false,
+
   });
 });
 
@@ -145,8 +144,7 @@ it(`Reducer should change current city by a given value`, () => {
             currentOffers: getOffersByCity(City.AMSTERDAM, offers),
             cities: CITIES,
             currentSortValue: `Popular`,
-            activeMapPin: false,
-            disabledMapPin: false,
+
           },
           {
             type: ActionType.CHANGE_CITY,
@@ -159,8 +157,7 @@ it(`Reducer should change current city by a given value`, () => {
     currentOffers: getOffersByCity(City.AMSTERDAM, offers),
     cities: CITIES,
     currentSortValue: `Popular`,
-    activeMapPin: false,
-    disabledMapPin: false,
+
   });
 });
 
@@ -176,8 +173,7 @@ it(`Reducer should change current offer screen by a given value`, () => {
             offerScreen: false,
             cities: CITIES,
             currentSortValue: `Popular`,
-            activeMapPin: false,
-            disabledMapPin: false,
+
           },
           {
             type: ActionType.CHANGE_OFFER_SCREEN,
@@ -191,8 +187,6 @@ it(`Reducer should change current offer screen by a given value`, () => {
     offerScreen: offerId,
     cities: CITIES,
     currentSortValue: `Popular`,
-    activeMapPin: false,
-    disabledMapPin: false,
   });
 });
 
@@ -207,8 +201,7 @@ it(`Reducer should change current SORT TYPE by a given value`, () => {
             offerScreen: false,
             cities: CITIES,
             currentSortValue: `Popular`,
-            activeMapPin: false,
-            disabledMapPin: false,
+
           },
           {
             type: ActionType.CHANGE_SORT_TYPE,
@@ -222,70 +215,10 @@ it(`Reducer should change current SORT TYPE by a given value`, () => {
     offerScreen: false,
     cities: CITIES,
     currentSortValue: `Price: low to high`,
-    activeMapPin: false,
-    disabledMapPin: false,
+
   });
 });
 
-it(`Reducer should change current ACTIVATE MAP PIN by a given value`, () => {
-  expect(
-      reducer(
-          {
-            currentCity: City.AMSTERDAM,
-            offers,
-            currentOffers: getOffersByCity(City.AMSTERDAM, offers),
-            offerScreen: false,
-            cities: CITIES,
-            currentSortValue: `Popular`,
-            activeMapPin: false,
-            disabledMapPin: false,
-          },
-          {
-            type: ActionType.ACTIVATE_MAP_PIN,
-            payload: 4,
-          }
-      )
-  ).toEqual({
-    currentCity: City.AMSTERDAM,
-    offers,
-    currentOffers: getOffersByCity(City.AMSTERDAM, offers),
-    offerScreen: false,
-    cities: CITIES,
-    currentSortValue: `Popular`,
-    activeMapPin: 4,
-    disabledMapPin: false,
-  });
-});
-
-it(`Reducer should change current DISABLED MAP PIN by a given value`, () => {
-  expect(
-      reducer(
-          {
-            currentCity: City.AMSTERDAM,
-            offers,
-            currentOffers: getOffersByCity(City.AMSTERDAM, offers),
-            offerScreen: false,
-            cities: CITIES,
-            currentSortValue: `Popular`,
-            activeMapPin: false,
-            disabledMapPin: false,
-          },
-          {
-            type: ActionType.DISABLE_MAP_PIN,
-            payload: 4,
-          }
-      )
-  ).toEqual({
-    currentCity: City.AMSTERDAM,
-    offers,
-    currentOffers: getOffersByCity(City.AMSTERDAM, offers),
-    offerScreen: false,
-    cities: CITIES,
-    currentSortValue: `Popular`,
-    activeMapPin: false,
-    disabledMapPin: 4,
-  });
-});
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for changing city returns correct action`, () => {
@@ -316,17 +249,4 @@ describe(`Action creators work correctly`, () => {
     });
   });
 
-  it(`Action creator for ACTIVATE MAP PIN returns correct action`, () => {
-    expect(ActionCreator.activateMapPin(4)).toEqual({
-      type: ActionType.ACTIVATE_MAP_PIN,
-      payload: 4,
-    });
-  });
-
-  it(`Action creator for DISABLED MAP PIN returns correct action`, () => {
-    expect(ActionCreator.disableMapPin(4)).toEqual({
-      type: ActionType.DISABLE_MAP_PIN,
-      payload: 4,
-    });
-  });
 });
