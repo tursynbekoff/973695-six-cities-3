@@ -8,7 +8,6 @@ const OfferList = (props) => {
     onBookmarkClick,
     currentSortValue,
     onHoverActiveMapPin,
-    onHoverDisableMapPin,
     onHoverResetMapPin,
   } = props;
 
@@ -46,7 +45,6 @@ const OfferList = (props) => {
             onBookmarkClick={onBookmarkClick}
             key={index}
             onHoverActiveMapPin={onHoverActiveMapPin}
-            onHoverDisableMapPin={onHoverDisableMapPin}
             onHoverResetMapPin={onHoverResetMapPin}
           />);
       })}
@@ -59,7 +57,6 @@ OfferList.propTypes = {
   onBookmarkClick: PropTypes.func.isRequired,
   currentSortValue: PropTypes.string.isRequired,
   onHoverActiveMapPin: PropTypes.func.isRequired,
-  onHoverDisableMapPin: PropTypes.func.isRequired,
   onHoverResetMapPin: PropTypes.func.isRequired,
 };
 

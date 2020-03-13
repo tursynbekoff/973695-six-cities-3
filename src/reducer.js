@@ -1,4 +1,5 @@
 import {getOffersByCity} from "./utils.js";
+import {extend} from "./utils.js";
 import offers from "./components/mocks/offers.js";
 import {City} from "./const.js";
 import {CITIES} from "./const.js";
@@ -10,8 +11,6 @@ const initialState = {
   cities: CITIES,
   offerScreen: false,
   currentSortValue: `Popular`,
-  activeMapPin: false,
-  disabledMapPin: false,
 };
 
 const ActionType = {
@@ -19,8 +18,6 @@ const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
   CHANGE_OFFER_SCREEN: `CHANGE_OFFER_SCREEN`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
-  ACTIVATE_MAP_PIN: `ACTIVATE_MAP_PIN`,
-  DISABLE_MAP_PIN: `DISABLE_MAP_PIN`,
 };
 
 const ActionCreator = {
@@ -40,44 +37,23 @@ const ActionCreator = {
     type: ActionType.CHANGE_SORT_TYPE,
     payload: sortType
   }),
-  activateMapPin: (mapPin) => ({
-    type: ActionType.ACTIVATE_MAP_PIN,
-    payload: mapPin
-  }),
-  disableMapPin: (mapPin) => ({
-    type: ActionType.DISABLE_MAP_PIN,
-    payload: mapPin
-  }),
 };
 
 const reducer = (state = initialState, action) => {
 
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return Object.assign({}, state,
-          {currentCity: action.payload});
+      return extend(state, {currentCity: action.payload});
 
     case ActionType.GET_OFFERS:
-      return Object.assign({}, state,
-          {currentOffers: getOffersByCity(action.payload, state.offers)});
+      return extend(state, {currentOffers: getOffersByCity(action.payload, state.offers)});
 
     case ActionType.CHANGE_OFFER_SCREEN:
-      return Object.assign({}, state,
-          {offerScreen: action.payload});
+      return extend(state, {offerScreen: action.payload});
 
     case ActionType.CHANGE_SORT_TYPE:
-      return Object.assign({}, state,
-          {currentSortValue: action.payload});
-
-    case ActionType.ACTIVATE_MAP_PIN:
-      return Object.assign({}, state,
-          {activeMapPin: action.payload});
-
-    case ActionType.DISABLE_MAP_PIN:
-      return Object.assign({}, state,
-          {disabledMapPin: action.payload});
+      return extend(state, {currentSortValue: action.payload});
   }
-
 
   return state;
 };

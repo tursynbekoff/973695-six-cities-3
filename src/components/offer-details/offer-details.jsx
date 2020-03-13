@@ -10,7 +10,6 @@ const Details = (props) => {
     cities,
     currentCity,
     activeMapPin,
-    disabledMapPin
   } = props;
 
   const {
@@ -241,7 +240,6 @@ const Details = (props) => {
               currentCity={currentCity}
               offerList={filteredList}
               activeMapPin={activeMapPin}
-              disabledMapPin={disabledMapPin}
             />
           </section>
         </section>
@@ -369,8 +367,7 @@ Details.propTypes = {
     })
   ]),
   offerList: PropTypes.array.isRequired,
-  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
-  disabledMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 };
 
 export default Details;

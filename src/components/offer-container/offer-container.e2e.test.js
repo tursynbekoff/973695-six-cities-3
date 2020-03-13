@@ -1,6 +1,7 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import Enzyme, {shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import OfferContainer from "./offer-container.jsx";
 
 const offerList = [
   {
@@ -50,26 +51,36 @@ const cities = [
 const currentCity = `Amsterdam`;
 const currentSortValue = `Popular`;
 
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
-it(` Main render has problems`, () => {
+it(`Should bookmark button be pressed`, () => {
   const onBookmarkClick = jest.fn();
-  const onCityClick = jest.fn();
   const onSortTypeClick = jest.fn();
+  const onHoverActiveMapPin = jest.fn();
+  const activeMapPin = false;
+  const onHoverResetMapPin = jest.fn();
 
-  const tree = renderer
-      .create(
-          <Main
-            cities={cities}
-            currentCity={currentCity}
-            onCityClick={onCityClick}
-            offerList={offerList}
-            onBookmarkClick={onBookmarkClick}
-            currentSortValue={currentSortValue}
-            onSortTypeClick={onSortTypeClick}
-          />, {
-            createNodeMock: () => document.createElement(`div`)
-          }
-      ).toJSON();
+  const mainScreen = shallow(
+      <OfferContainer
+        offerList={offerList}
+        cities={cities}
+        onBookmarkClick={onBookmarkClick}
+        currentCity={currentCity}
+        currentSortValue={currentSortValue}
+        onSortTypeClick={onSortTypeClick}
+        activeMapPin={activeMapPin}
+        onHoverActiveMapPin={onHoverActiveMapPin}
+        onHoverResetMapPin={onHoverResetMapPin}
+      />
+  );
 
-  expect(tree).toMatchSnapshot();
+  const bookmarkButtons = mainScreen.find(`place-card__bookmark-button`);
+
+  bookmarkButtons.forEach((bookmarkButton) => {
+    bookmarkButton.props().onClick();
+  });
+
+  expect(onBookmarkClick.mock.calls.length).toBe(bookmarkButtons.length);
 });

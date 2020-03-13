@@ -6,7 +6,6 @@ const Card = (props) => {
     offerCard,
     onBookmarkClick,
     onHoverActiveMapPin,
-    onHoverDisableMapPin,
     onHoverResetMapPin,
   } = props;
   const {id, price, description, type, rating} = offerCard;
@@ -18,7 +17,6 @@ const Card = (props) => {
         onHoverActiveMapPin(id);
       }}
       onMouseLeave={() => {
-        onHoverDisableMapPin(id);
         onHoverResetMapPin();
       }}
 
@@ -80,7 +78,6 @@ Card.propTypes = {
   }),
   onBookmarkClick: PropTypes.func.isRequired,
   onHoverActiveMapPin: PropTypes.func.isRequired,
-  onHoverDisableMapPin: PropTypes.func.isRequired,
   onHoverResetMapPin: PropTypes.func.isRequired,
 };
 
