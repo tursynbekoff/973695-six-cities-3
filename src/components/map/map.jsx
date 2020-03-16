@@ -84,7 +84,7 @@ Map.propTypes = {
       })).isRequired,
   cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
-  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
 };
 
