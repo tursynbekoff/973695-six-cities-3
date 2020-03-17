@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import CitiesList from "../cities-list/cities-list.jsx";
 import OfferContainer from "../offer-container/offer-container.jsx";
 import withHover from "../../hocs/with-hover/with-hover.jsx";
+import EmptyScreen from "../offer-empty-screen/offer-empty-screen.jsx";
 
 const OfferContainerWrapped = withHover(OfferContainer);
 
@@ -17,6 +18,8 @@ const Main = (props) => {
     currentSortValue,
     onSortTypeClick,
   } = props;
+
+  const offerCount = offerList.length;
 
   return (
     <div className="page page--gray page--main">
@@ -55,14 +58,19 @@ const Main = (props) => {
           </section>
         </div>
         <div className="cities">
-          <OfferContainerWrapped
-            offerList={offerList}
-            cities={cities}
-            onBookmarkClick={onBookmarkClick}
-            currentCity={currentCity}
-            currentSortValue={currentSortValue}
-            onSortTypeClick={onSortTypeClick}
-          />
+          {offerCount > 0 ?
+            (<OfferContainerWrapped
+              offerList={offerList}
+              onBookmarkClick={onBookmarkClick}
+              currentCity={currentCity}
+              currentSortValue={currentSortValue}
+              onSortTypeClick={onSortTypeClick}
+            />) : (
+              <EmptyScreen
+                currentCity={currentCity}
+              />
+            )
+          }
         </div>
       </main>
     </div>

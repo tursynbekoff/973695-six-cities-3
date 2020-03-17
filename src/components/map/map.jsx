@@ -82,7 +82,6 @@ Map.propTypes = {
       PropTypes.shape({
         coordinate: PropTypes.arrayOf(PropTypes.number.isRequired)
       })).isRequired,
-  cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
