@@ -11,7 +11,6 @@ const OfferContainer = (props) => {
 
   const {
     offerList,
-    cities,
     onBookmarkClick,
     currentCity,
     currentSortValue,
@@ -47,7 +46,6 @@ const OfferContainer = (props) => {
       <div className="cities__right-section">
         <section className="cities__map map">
           <Map
-            cities={cities}
             currentCity={currentCity}
             offerList={offerList}
             activeMapPin={activeMapPin}
@@ -61,7 +59,6 @@ const OfferContainer = (props) => {
 OfferContainer.propTypes = {
   offerList: PropTypes.array.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
-  cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   currentSortValue: PropTypes.string.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,

@@ -40,15 +40,6 @@ const offerList = [
 
 const currentCity = `Amsterdam`;
 
-const cities = [
-  `Paris`,
-  `Cologne`,
-  `Brussels`,
-  `Amsterdam`,
-  `Hamburg`,
-  `Dusseldorf`
-];
-
 const activeMapPin = false;
 const disabledMapPin = false;
 
@@ -56,7 +47,6 @@ it(`Render Map`, () => {
   const tree = renderer
       .create(
           <Map
-            cities={cities}
             currentCity={currentCity}
             offerList={offerList}
             activeMapPin={activeMapPin}

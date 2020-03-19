@@ -38,15 +38,6 @@ const offerList = [
   }
 ];
 
-const cities = [
-  `Paris`,
-  `Cologne`,
-  `Brussels`,
-  `Amsterdam`,
-  `Hamburg`,
-  `Dusseldorf`
-];
-
 const currentCity = `Amsterdam`;
 const currentSortValue = `Popular`;
 
@@ -62,7 +53,6 @@ it(` Main render has problems`, () => {
       .create(
           <OfferContainer
             offerList={offerList}
-            cities={cities}
             onBookmarkClick={onBookmarkClick}
             currentCity={currentCity}
             currentSortValue={currentSortValue}
