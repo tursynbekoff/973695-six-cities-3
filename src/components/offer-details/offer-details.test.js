@@ -13,6 +13,8 @@ const offerList = [
     location: {
       city: `Amsterdam`
     },
+    imgSrc: [`img/picture1.jpg`, `img/picture2.jpg`],
+    rentalFeatures: [`Stove`, `Fridge`],
     reviews: [
       {
         name: `Max`,
@@ -29,6 +31,8 @@ const offerList = [
     location: {
       city: `Amsterdam`
     },
+    imgSrc: [`img/picture3.jpg`, `img/picture4.jpg`],
+    rentalFeatures: [`A/C`, `Dresser`, `Washing Maschine`],
     reviews: [
       {
         name: `Angelina`,
@@ -48,6 +52,8 @@ const offer = {
   location: {
     city: `Amsterdam`
   },
+  imgSrc: [`img/picture3.jpg`, `img/picture4.jpg`],
+  rentalFeatures: [`A/C`, `Dresser`, `Washing Maschine`],
   reviews: [
     {
       name: `Angelina`,

@@ -15,6 +15,8 @@ const offerList = [
     location: {
       city: `Amsterdam`
     },
+    imgSrc: [`img/picture1.jpg`, `img/picture2.jpg`],
+    rentalFeatures: [`Stove`, `Fridge`],
     reviews: [
       {
         name: `Max`,
@@ -31,6 +33,8 @@ const offerList = [
     location: {
       city: `Amsterdam`
     },
+    imgSrc: [`img/picture3.jpg`, `img/picture4.jpg`],
+    rentalFeatures: [`A/C`, `Dresser`, `Washing Maschine`],
     reviews: [
       {
         name: `Angelina`,
@@ -50,6 +54,8 @@ const offer = {
   location: {
     city: `Amsterdam`
   },
+  imgSrc: [`img/picture3.jpg`, `img/picture4.jpg`],
+  rentalFeatures: [`A/C`, `Dresser`, `Washing Maschine`],
   reviews: [
     {
       name: `Angelina`,
@@ -70,12 +76,17 @@ const cities = [
 const currentCity = `Amsterdam`;
 
 const initialState = {
-  currentCity: cities[0],
-  offers: offerList,
-  currentOffers: offerList,
-  cities,
-  offerScreen: false,
-  currentSortValue: `Popular`,
+  DATA: {
+    offers: offerList,
+    currentOffers: offerList,
+    cities,
+    isError: false,
+  },
+  APP: {
+    currentCity: cities[3],
+    currentSortValue: `Popular`,
+    offerScreen: false,
+  },
 };
 
 const reducer = (state = initialState) => {

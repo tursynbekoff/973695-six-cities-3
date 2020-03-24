@@ -261,7 +261,7 @@ exports[` Main render has problems 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="img/picture1.jpg"
                       width="260"
                     />
                   </a>
@@ -371,7 +371,7 @@ exports[` Main render has problems 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="img/picture3.jpg"
                       width="260"
                     />
                   </a>

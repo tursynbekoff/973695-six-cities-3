@@ -77,7 +77,7 @@ exports[`Render App 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item tabs__item--active"
+              className="locations__item-link tabs__item "
               href="#"
               onClick={[Function]}
             >
@@ -116,7 +116,7 @@ exports[`Render App 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item "
+              className="locations__item-link tabs__item tabs__item--active"
               href="#"
               onClick={[Function]}
             >
@@ -171,7 +171,7 @@ exports[`Render App 1`] = `
           <b
             className="places__found"
           >
-            2 places to stay in Paris
+            2 places to stay in Amsterdam
           </b>
           <form
             action="#"
@@ -261,7 +261,7 @@ exports[`Render App 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="img/picture1.jpg"
                       width="260"
                     />
                   </a>
@@ -371,7 +371,7 @@ exports[`Render App 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="img/picture3.jpg"
                       width="260"
                     />
                   </a>

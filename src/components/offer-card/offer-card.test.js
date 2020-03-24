@@ -14,6 +14,7 @@ const offer = {
   location: {
     city: `Amsterdam`
   },
+  imgSrc: [`img/picture3.jpg`, `img/picture4.jpg`],
   reviews: [
     {
       name: `Max`,

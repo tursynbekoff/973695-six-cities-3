@@ -13,6 +13,7 @@ const offerList = [
     location: {
       city: `Amsterdam`
     },
+    imgSrc: [`img/picture1.jpg`, `img/picture2.jpg`],
     reviews: [
       {
         name: `Max`,
@@ -29,6 +30,7 @@ const offerList = [
     location: {
       city: `Amsterdam`
     },
+    imgSrc: [`img/picture3.jpg`, `img/picture4.jpg`],
     reviews: [
       {
         name: `Angelina`,
