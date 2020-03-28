@@ -75,7 +75,7 @@ exports[`Should OfferDetails render correctly 1`] = `
             <img
               alt="Photo studio"
               className="property__image"
-              src="img/room.jpg"
+              src="img/picture3.jpg"
             />
           </div>
           <div
@@ -84,43 +84,7 @@ exports[`Should OfferDetails render correctly 1`] = `
             <img
               alt="Photo studio"
               className="property__image"
-              src="img/apartment-01.jpg"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="img/apartment-02.jpg"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="img/apartment-03.jpg"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="img/studio-01.jpg"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="img/apartment-01.jpg"
+              src="img/picture4.jpg"
             />
           </div>
         </div>
@@ -202,12 +166,13 @@ exports[`Should OfferDetails render correctly 1`] = `
             <li
               className="property__feature property__feature--bedrooms"
             >
-              3 Bedrooms
+               Bedrooms
             </li>
             <li
               className="property__feature property__feature--adults"
             >
-              Max 4 adults
+              Max 
+               adults
             </li>
           </ul>
           <div
@@ -239,52 +204,17 @@ exports[`Should OfferDetails render correctly 1`] = `
               <li
                 className="property__inside-item"
               >
-                Wi-Fi
+                A/C
               </li>
               <li
                 className="property__inside-item"
               >
-                Washing machine
+                Dresser
               </li>
               <li
                 className="property__inside-item"
               >
-                Towels
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Heating
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Coffee machine
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Baby seat
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Kitchen
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Dishwasher
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Cabel TV
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Fridge
+                Washing Maschine
               </li>
             </ul>
           </div>

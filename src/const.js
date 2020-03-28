@@ -1,3 +1,12 @@
+export const OffersRestriction = {
+  MAX_RATING: 5,
+  MAX_CITIES_COUNT: 6,
+  MAX_IMAGES_QUANTITY: 6,
+  MAX_REVIEWS_QUANTITY: 10,
+  MAX_NEARBY_OFFERS_QUANTITY: 3,
+  MAX_MAP_OFFERS_QUANTITY: 4,
+};
+
 export const City = {
   PARIS: `Paris`,
   COLOGNE: `Cologne`,

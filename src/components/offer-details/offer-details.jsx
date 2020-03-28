@@ -2,6 +2,7 @@ import React from "react";
 import ReviewList from "../review-list/review-list.jsx";
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
+import {OffersRestriction} from "../../const";
 
 const Details = (props) => {
   const {
@@ -18,7 +19,11 @@ const Details = (props) => {
     description,
     type,
     reviews,
-    rating
+    rating,
+    imgSrc,
+    roomQuantity,
+    guestQuantity,
+    rentalFeatures,
   } = offer;
 
   const filteredList = offerList.filter((offerItem) => offerItem.id !== id);
@@ -52,24 +57,15 @@ const Details = (props) => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
+              {
+                imgSrc.map((src, i) => {
+                  return (
+                    <div className="property__image-wrapper" key={i + src}>
+                      <img className="property__image" src={src} alt="Photo studio" />
+                    </div>
+                  );
+                }).slice(0, OffersRestriction.MAX_IMAGES_QUANTITY)
+              }
             </div>
           </div>
           <div className="property__container container">
@@ -100,10 +96,10 @@ const Details = (props) => {
                   {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                                        3 Bedrooms
+                  {roomQuantity} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                                        Max 4 adults
+                  Max {guestQuantity} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -113,36 +109,15 @@ const Details = (props) => {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                                            Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                                            Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                                            Towels
-                  </li>
-                  <li className="property__inside-item">
-                                            Heating
-                  </li>
-                  <li className="property__inside-item">
-                                            Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                                            Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                                            Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                                            Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                                            Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                                            Fridge
-                  </li>
+                  {
+                    rentalFeatures.map((feature, i) => {
+                      return (
+                        <li className="property__inside-item" key={i + feature}>
+                          {feature}
+                        </li>
+                      );
+                    })
+                  }
                 </ul>
               </div>
               <div className="property__host">

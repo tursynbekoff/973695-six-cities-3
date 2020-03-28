@@ -1,10 +1,23 @@
 import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import Details from "../offer-details/offer-details.jsx";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/app/app.js";
+import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
+
+import {
+  getAllOffers,
+  getCurrentOffers,
+  getCities,
+} from "../../reducer/data/selectors.js";
+
+import {
+  getCurrentCity,
+  getCurrentSortValue,
+  getActiveOfferScreen,
+} from "../../reducer/app/selectors.js";
 
 class App extends PureComponent {
 
@@ -71,20 +84,19 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
-  offers: state.offers,
-  currentOffers: state.currentOffers,
-  cities: state.cities,
-  offerScreen: state.offerScreen,
-  currentSortValue: state.currentSortValue,
+  currentCity: getCurrentCity(state),
+  offers: getAllOffers(state),
+  currentOffers: getCurrentOffers(state),
+  cities: getCities(state),
+  offerScreen: getActiveOfferScreen(state),
+  currentSortValue: getCurrentSortValue(state),
 });
 
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick(evt, city) {
-    evt.preventDefault();
+  onCityClick(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
+    dispatch(DataActionCreator.getOffers(city));
   },
   onBookmarkClick(offerId) {
     dispatch(ActionCreator.changeOfferScreen(offerId));
