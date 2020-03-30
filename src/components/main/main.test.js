@@ -51,6 +51,8 @@ const cities = [
   `Dusseldorf`
 ];
 
+const userEmail = `sample@yahoo.com`;
+
 const currentCity = `Amsterdam`;
 const currentSortValue = `Popular`;
 
@@ -70,6 +72,7 @@ it(` Main render has problems`, () => {
             onBookmarkClick={onBookmarkClick}
             currentSortValue={currentSortValue}
             onSortTypeClick={onSortTypeClick}
+            userEmail={userEmail}
           />, {
             createNodeMock: () => document.createElement(`div`)
           }
