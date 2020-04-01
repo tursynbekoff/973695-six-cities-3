@@ -40,3 +40,15 @@ export const SortType = {
   PRICE_HIGH_TO_LOW: `Price: high to low`,
   TOP_RATED: `Top rated first`,
 };
+
+export const AuthorizationStatus = {
+  AUTHORIZED: `AUTHORIZED`,
+  UNAUTHORIZED: `UNAUTHORIZED`,
+  UNKNOWN: `UNKNOWN`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const ServerResponseStatusCode = {
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+};

@@ -6,6 +6,15 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app.js";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+
+import {
+  getLoginStatus,
+  getUserEmail,
+  getAuthorisationStatus,
+} from "../../reducer/user/selectors.js";
+
+import SignIn from '../sign-in/sign-in.jsx';
 
 import {
   getAllOffers,
@@ -19,9 +28,15 @@ import {
   getActiveOfferScreen,
 } from "../../reducer/app/selectors.js";
 
+import {AuthorizationStatus} from '../../const';
+
 class App extends PureComponent {
 
   _renderMainScreen() {
+
+    if (this.props.authorizationStatus === AuthorizationStatus.UNAUTHORIZED) {
+      return this._renderAuthScreen();
+    }
 
     if (!this.props.offerScreen) {
       return (
@@ -33,6 +48,7 @@ class App extends PureComponent {
           onBookmarkClick={this.props.onBookmarkClick}
           currentSortValue={this.props.currentSortValue}
           onSortTypeClick={this.props.onSortTypeClick}
+          userEmail={this.props.userEmail}
         />
       );
     } else if (this.props.offerScreen) {
@@ -52,8 +68,17 @@ class App extends PureComponent {
         cities={this.props.cities}
         currentCity={this.props.currentCity}
         offer={this.offerObj}
+        userEmail={this.props.userEmail}
       />
     );
+  }
+
+  _renderAuthScreen() {
+    return (<SignIn
+      onSubmit={this.props.login}
+      isLoginError={this.props.isLoginError}
+      userEmail={this.props.userEmail}
+    />);
   }
 
   render() {
@@ -66,6 +91,13 @@ class App extends PureComponent {
           <Route exact path="/details/">
             {this._renderDetailScreen(this.props.offerScreen)}
           </Route>
+          <Route
+            exact
+            path="/login"
+          >
+            {this._renderAuthScreen}
+          </Route>
+
         </Switch>
       </BrowserRouter>
     );
@@ -81,6 +113,10 @@ App.propTypes = {
   offerScreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   currentSortValue: PropTypes.string.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  userEmail: PropTypes.string,
+  isLoginError: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -90,6 +126,9 @@ const mapStateToProps = (state) => ({
   cities: getCities(state),
   offerScreen: getActiveOfferScreen(state),
   currentSortValue: getCurrentSortValue(state),
+  userEmail: getUserEmail(state),
+  isLoginError: getLoginStatus(state),
+  authorizationStatus: getAuthorisationStatus(state),
 });
 
 
@@ -103,6 +142,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortTypeClick(sortType) {
     dispatch(ActionCreator.changeSortType(sortType));
+  },
+  login(userData) {
+    dispatch(UserOperation.login(userData));
   },
 });
 

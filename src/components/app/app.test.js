@@ -75,6 +75,13 @@ const cities = [
 
 const currentCity = `Amsterdam`;
 
+export const AuthorizationStatus = {
+  AUTHORIZED: `AUTHORIZED`,
+  UNAUTHORIZED: `UNAUTHORIZED`,
+  UNKNOWN: `UNKNOWN`,
+  NO_AUTH: `NO_AUTH`,
+};
+
 const initialState = {
   DATA: {
     offers: offerList,
@@ -87,15 +94,25 @@ const initialState = {
     currentSortValue: `Popular`,
     offerScreen: false,
   },
+  USER: {
+    userEmail: `sample@yahoo.com`,
+    isLoginError: false,
+    authorizationStatus: AuthorizationStatus.AUTHORIZED
+  }
 };
 
 const reducer = (state = initialState) => {
   return state;
 };
 
+const userEmail = `sample@yahoo.com`;
+const isLoginError = false;
+
 
 const currentSortValue = `Popular`;
 const offerScreen = false;
+
+const authorizationStatus = AuthorizationStatus.AUTHORIZED;
 
 it(`Render App`, () => {
   const store = createStore(reducer);
@@ -111,6 +128,9 @@ it(`Render App`, () => {
               offerScreen={offerScreen}
               currentSortValue={currentSortValue}
               offer={offer}
+              userEmail={userEmail}
+              isLoginError={isLoginError}
+              authorizationStatus={authorizationStatus}
             />
           </Provider>, {
             createNodeMock: () => document.createElement(`div`)
