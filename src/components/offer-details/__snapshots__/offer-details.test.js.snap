@@ -48,7 +48,7 @@ exports[`Should OfferDetails render correctly 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  sample@yahoo.com
                 </span>
               </a>
             </li>
@@ -230,20 +230,20 @@ exports[`Should OfferDetails render correctly 1`] = `
               className="property__host-user user"
             >
               <div
-                className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+                className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro "
               >
                 <img
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src="img/avatar-angelina.jpg"
+                  src="img/host_2.jpg"
                   width="74"
                 />
               </div>
               <span
                 className="property__user-name"
               >
-                Angelina
+                Sammy
               </span>
             </div>
             <div
@@ -341,6 +341,7 @@ exports[`Should OfferDetails render correctly 1`] = `
               action="#"
               className="reviews__form form"
               method="post"
+              onSubmit={[Function]}
             >
               <label
                 className="reviews__label form__label"
@@ -352,9 +353,12 @@ exports[`Should OfferDetails render correctly 1`] = `
                 className="reviews__rating-form form__rating"
               >
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
+                  disabled={false}
                   id="5-stars"
                   name="rating"
+                  onChange={[Function]}
                   type="radio"
                   value="5"
                 />
@@ -367,86 +371,121 @@ exports[`Should OfferDetails render correctly 1`] = `
                     className="form__star-image"
                     height="33"
                     width="37"
-                  />
+                  >
+                    <use
+                      xlinkHref="#icon-star"
+                    />
+                  </svg>
                 </label>
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
-                  id="4-stars"
+                  disabled={false}
+                  id="5-stars"
                   name="rating"
+                  onChange={[Function]}
                   type="radio"
-                  value="4"
+                  value="5"
                 />
                 <label
                   className="reviews__rating-label form__rating-label"
                   htmlFor="4-stars"
-                  title="good"
+                  title="perfect"
                 >
                   <svg
                     className="form__star-image"
                     height="33"
                     width="37"
-                  />
+                  >
+                    <use
+                      xlinkHref="#icon-star"
+                    />
+                  </svg>
                 </label>
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
-                  id="3-stars"
+                  disabled={false}
+                  id="5-stars"
                   name="rating"
+                  onChange={[Function]}
                   type="radio"
-                  value="3"
+                  value="5"
                 />
                 <label
                   className="reviews__rating-label form__rating-label"
                   htmlFor="3-stars"
-                  title="not bad"
+                  title="perfect"
                 >
                   <svg
                     className="form__star-image"
                     height="33"
                     width="37"
-                  />
+                  >
+                    <use
+                      xlinkHref="#icon-star"
+                    />
+                  </svg>
                 </label>
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
-                  id="2-stars"
+                  disabled={false}
+                  id="5-stars"
                   name="rating"
+                  onChange={[Function]}
                   type="radio"
-                  value="2"
+                  value="5"
                 />
                 <label
                   className="reviews__rating-label form__rating-label"
                   htmlFor="2-stars"
-                  title="badly"
+                  title="perfect"
                 >
                   <svg
                     className="form__star-image"
                     height="33"
                     width="37"
-                  />
+                  >
+                    <use
+                      xlinkHref="#icon-star"
+                    />
+                  </svg>
                 </label>
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
-                  id="1-star"
+                  disabled={false}
+                  id="5-stars"
                   name="rating"
+                  onChange={[Function]}
                   type="radio"
-                  value="1"
+                  value="5"
                 />
                 <label
                   className="reviews__rating-label form__rating-label"
-                  htmlFor="1-star"
-                  title="terribly"
+                  htmlFor="1-stars"
+                  title="perfect"
                 >
                   <svg
                     className="form__star-image"
                     height="33"
                     width="37"
-                  />
+                  >
+                    <use
+                      xlinkHref="#icon-star"
+                    />
+                  </svg>
                 </label>
               </div>
               <textarea
                 className="reviews__textarea form__textarea"
+                disabled={false}
                 id="review"
                 name="review"
+                onChange={[Function]}
                 placeholder="Tell how was your stay, what you like and what can be improved"
+                value=""
               />
               <div
                 className="reviews__button-wrapper"
@@ -455,12 +494,13 @@ exports[`Should OfferDetails render correctly 1`] = `
                   className="reviews__help"
                 >
                   To submit review please make sure to set 
+                   
                   <span
                     className="reviews__star"
                   >
                     rating
                   </span>
-                   and describe your stay with at least 
+                   and describe your stay with at least
                   <b
                     className="reviews__text-amount"
                   >
@@ -470,7 +510,7 @@ exports[`Should OfferDetails render correctly 1`] = `
                 </p>
                 <button
                   className="reviews__submit form__submit button"
-                  disabled=""
+                  disabled={true}
                   type="submit"
                 >
                   Submit
