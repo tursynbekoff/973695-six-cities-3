@@ -78,6 +78,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
     currentOffers: [],
     cities: [],
     isError: false,
+    isSending: false,
+    reviews: [],
   });
 });
 
@@ -89,6 +91,8 @@ it(`Reducer should update initial state by loaded data`, () => {
             currentOffers: [],
             cities: [],
             isError: false,
+            isSending: false,
+            reviews: [],
           },
           {type: ActionType.LOAD_OFFERS, payload: offerList}
       )
@@ -97,6 +101,8 @@ it(`Reducer should update initial state by loaded data`, () => {
     currentOffers: getOffersByCity(City.AMSTERDAM, offerList),
     cities,
     isError: false,
+    isSending: false,
+    reviews: [],
   });
 });
 
@@ -108,6 +114,8 @@ it(`Reducer should get offers by a given city`, () => {
             currentOffers: offerList,
             cities,
             isError: false,
+            isSending: false,
+            reviews: [],
           },
           {
             type: ActionType.GET_OFFERS,
@@ -119,6 +127,8 @@ it(`Reducer should get offers by a given city`, () => {
     currentOffers: getOffersByCity(City.AMSTERDAM, offerList),
     cities,
     isError: false,
+    isSending: false,
+    reviews: [],
   });
 });
 

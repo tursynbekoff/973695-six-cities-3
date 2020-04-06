@@ -1,8 +1,20 @@
 import React from "react";
 import ReviewList from "../review-list/review-list.jsx";
+import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
 import {OffersRestriction} from "../../const";
+import CommentSection from "../offer-review-form/offer-review-form.jsx";
+import withReview from "../../hocs/with-review/with-review.jsx";
+
+const CommentSectionWrapped = withReview(CommentSection);
+
+import {
+  getIsError,
+  getIsSending,
+  getReviews,
+} from "../../reducer/data/selectors.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 const Details = (props) => {
   const {
@@ -11,6 +23,10 @@ const Details = (props) => {
     cities,
     currentCity,
     activeMapPin,
+    postReview,
+    isSending,
+    isError,
+    userEmail,
   } = props;
 
   const {
@@ -24,6 +40,11 @@ const Details = (props) => {
     roomQuantity,
     guestQuantity,
     rentalFeatures,
+    rentalHost: {
+      hostName,
+      hostAvatar,
+      isSuper
+    }
   } = offer;
 
   const filteredList = offerList.filter((offerItem) => offerItem.id !== id);
@@ -44,7 +65,7 @@ const Details = (props) => {
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{userEmail}</span>
                   </a>
                 </li>
               </ul>
@@ -124,12 +145,12 @@ const Details = (props) => {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div
-                    className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74"
+                    className={`property__avatar-wrapper user__avatar-wrapper ${isSuper ? `property__avatar-wrapper--pro` : ``} `}>
+                    <img className="property__avatar user__avatar" src={hostAvatar} width="74"
                       height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                                            Angelina
+                    {hostName}
                   </span>
                 </div>
                 <div className="property__description">
@@ -147,64 +168,12 @@ const Details = (props) => {
                 <ReviewList
                   reviews={reviews}
                 />
-                <form className="reviews__form form" action="#" method="post">
-                  <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                  <div className="reviews__rating-form form__rating">
-                    <input className="form__rating-input visually-hidden" name="rating" value="5"
-                      id="5-stars" type="radio"/>
-                    <label htmlFor="5-stars" className="reviews__rating-label form__rating-label"
-                      title="perfect">
-                      <svg className="form__star-image" width="37" height="33">
-
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="4"
-                      id="4-stars" type="radio"/>
-                    <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                      <svg className="form__star-image" width="37" height="33">
-
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="3"
-                      id="3-stars" type="radio"/>
-                    <label htmlFor="3-stars" className="reviews__rating-label form__rating-label"
-                      title="not bad">
-                      <svg className="form__star-image" width="37" height="33">
-
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="2"
-                      id="2-stars" type="radio"/>
-                    <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                      <svg className="form__star-image" width="37" height="33">
-
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="1"
-                      id="1-star" type="radio" />
-                    <label htmlFor="1-star" className="reviews__rating-label form__rating-label"
-                      title="terribly">
-                      <svg className="form__star-image" width="37" height="33">
-
-                      </svg>
-                    </label>
-                  </div>
-                  <textarea className="reviews__textarea form__textarea" id="review" name="review"
-                    placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-                  <div className="reviews__button-wrapper">
-                    <p className="reviews__help">
-                                                To submit review please make sure to set <span
-                        className="reviews__star">rating</span> and describe your stay with at least <b
-                        className="reviews__text-amount">50 characters</b>.
-                    </p>
-                    <button className="reviews__submit form__submit button" type="submit"
-                      disabled="">Submit</button>
-                  </div>
-                </form>
+                <CommentSectionWrapped
+                  onReviewSubmit={postReview}
+                  id={id}
+                  isSending={isSending}
+                  isError={isError}
+                />
               </section>
             </div>
           </div>
@@ -331,6 +300,7 @@ const Details = (props) => {
 Details.propTypes = {
   cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
+  userEmail: PropTypes.string.isRequired,
   offer: PropTypes.oneOfType([PropTypes.bool,
     PropTypes.shape({
       rating: PropTypes.number,
@@ -343,6 +313,26 @@ Details.propTypes = {
   ]),
   offerList: PropTypes.array.isRequired,
   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  postReview: PropTypes.func.isRequired,
+  isSending: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
-export default Details;
+const mapStateToProps = (state) => ({
+  reviews: getReviews(state),
+  isSending: getIsSending(state),
+  isError: getIsError(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadOfferData(id) {
+    dispatch(DataOperation.getReviews(id));
+  },
+  postReview(id, review) {
+    dispatch(DataOperation.postReview(id, review));
+    dispatch(DataOperation.getReviews(id));
+  },
+});
+
+export {Details};
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

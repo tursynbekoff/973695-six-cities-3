@@ -73,3 +73,25 @@ export const offersAdapter = (data) => {
     ],
   };
 };
+
+export const reviewsAdapter = (data) => {
+  return {
+    id: data.id,
+    user: {
+      id: data.user.id,
+      name: data.user.name,
+      avatar: data.user.avatar_url,
+      isPro: data.user.is_pro,
+    },
+    rating: data.rating,
+    date: new Date(data.date),
+    comment: data.comment,
+  };
+};
+
+export const newReviewAdapter = (data) => {
+  return {
+    comment: data.text,
+    rating: data.rating,
+  };
+};

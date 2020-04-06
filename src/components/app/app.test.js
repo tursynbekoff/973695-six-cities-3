@@ -61,7 +61,13 @@ const offer = {
       name: `Angelina`,
       review: `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
     }
-  ]
+  ],
+  rentalHost: {
+    id: `3`,
+    hostName: `Sammy`,
+    hostAvatar: `img/host_2.jpg`,
+    isSuper: true,
+  },
 };
 
 const cities = [
@@ -88,6 +94,8 @@ const initialState = {
     currentOffers: offerList,
     cities,
     isError: false,
+    isSending: false,
+    reviews: offer.reviews,
   },
   APP: {
     currentCity: cities[3],
