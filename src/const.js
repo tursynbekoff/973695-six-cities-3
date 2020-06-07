@@ -47,10 +47,21 @@ export const AuthorizationStatus = {
   AUTHORIZED: `AUTHORIZED`,
   UNAUTHORIZED: `UNAUTHORIZED`,
   UNKNOWN: `UNKNOWN`,
-  NO_AUTH: `NO_AUTH`,
 };
 
 export const ServerResponseStatusCode = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
+};
+
+export const AppRoute = {
+  LOGIN: `/login`,
+  ROOT: `/`,
+  offer: (id) => `/offer/${id}`,
+};
+
+export const Error = {
+  BAD_REQUEST: 400,
+  SERVER_ERROR: 500,
+  UNAUTHORIZED: 401
 };

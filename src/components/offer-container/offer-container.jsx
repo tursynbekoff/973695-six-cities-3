@@ -22,6 +22,8 @@ const OfferContainer = (props) => {
 
   const placesStentence = `${offerList.length} ${(offerList.length === 1) ? `place` : `places` } to stay in ${currentCity}`;
 
+  const offers = offerList.slice(0, 10);
+
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -34,7 +36,7 @@ const OfferContainer = (props) => {
         <div className="cities__places-list places__list tabs__content">
 
           <OfferList
-            offerList={offerList}
+            offerList={offers}
             currentSortValue={currentSortValue}
             onBookmarkClick={onBookmarkClick}
             onHoverActiveMapPin={onHoverActiveMapPin}
@@ -47,7 +49,7 @@ const OfferContainer = (props) => {
         <section className="cities__map map">
           <Map
             currentCity={currentCity}
-            offerList={offerList}
+            offerList={offers}
             activeMapPin={activeMapPin}
           />
         </section>

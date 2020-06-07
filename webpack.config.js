@@ -12,7 +12,7 @@ module.exports = {
     open: false,
     compress: true,
     watchContentBase: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   module: {
     rules: [

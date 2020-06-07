@@ -1,5 +1,7 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
+import {Redirect} from 'react-router-dom';
+import {AuthorizationStatus, AppRoute} from '../../const';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -22,6 +24,11 @@ class SignIn extends PureComponent {
   }
 
   render() {
+    const {authorizationStatus} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+      return <Redirect from={AppRoute.LOGIN} to={AppRoute.ROOT} />;
+    }
 
     return (
       <div className="page page--gray page--login">
@@ -101,7 +108,7 @@ class SignIn extends PureComponent {
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   userEmail: PropTypes.string,
-
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default SignIn;

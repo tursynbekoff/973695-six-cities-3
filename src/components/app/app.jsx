@@ -2,151 +2,57 @@ import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import Details from "../offer-details/offer-details.jsx";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/app/app.js";
-import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
-
-import {
-  getLoginStatus,
-  getUserEmail,
-  getAuthorisationStatus,
-} from "../../reducer/user/selectors.js";
-
+import {Switch, Route, Router} from "react-router-dom";
 import SignIn from '../sign-in/sign-in.jsx';
-
-import {
-  getAllOffers,
-  getCurrentOffers,
-  getCities,
-} from "../../reducer/data/selectors.js";
-
-import {
-  getCurrentCity,
-  getCurrentSortValue,
-  getActiveOfferScreen,
-} from "../../reducer/app/selectors.js";
-
-import {AuthorizationStatus} from '../../const';
-
+import {AppRoute} from '../../const';
+import history from "../../history.js";
 class App extends PureComponent {
-
-  _renderMainScreen() {
-
-    if (this.props.authorizationStatus === AuthorizationStatus.UNAUTHORIZED) {
-      return this._renderAuthScreen();
-    }
-
-    if (!this.props.offerScreen) {
-      return (
-        <Main
-          offerList={this.props.currentOffers}
-          cities={this.props.cities}
-          currentCity={this.props.currentCity}
-          onCityClick={this.props.onCityClick}
-          onBookmarkClick={this.props.onBookmarkClick}
-          currentSortValue={this.props.currentSortValue}
-          onSortTypeClick={this.props.onSortTypeClick}
-          userEmail={this.props.userEmail}
-        />
-      );
-    } else if (this.props.offerScreen) {
-      return this._renderDetailScreen(this.props.offerScreen);
-    }
-
-    return null;
-  }
-
-  _renderDetailScreen(id) {
-    this.offerObj = this.props.currentOffers.find(
-        (offerDetail) => offerDetail.id === +id
-    );
-    return (
-      <Details
-        offerList={this.props.currentOffers}
-        cities={this.props.cities}
-        currentCity={this.props.currentCity}
-        offer={this.offerObj}
-        userEmail={this.props.userEmail}
-      />
-    );
-  }
-
-  _renderAuthScreen() {
-    return (<SignIn
-      onSubmit={this.props.login}
-      isLoginError={this.props.isLoginError}
-      userEmail={this.props.userEmail}
-    />);
-  }
 
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
-            {this._renderMainScreen()}
-          </Route>
-          <Route exact path="/details/">
-            {this._renderDetailScreen(this.props.offerScreen)}
-          </Route>
-          <Route
-            exact
-            path="/login"
-          >
-            {this._renderAuthScreen}
-          </Route>
-
+          <Route exact path={AppRoute.ROOT} component={Main}/>
+          <Route exact path={`/offer/:id`} component={Details}/>
+          <Route exact path={AppRoute.LOGIN} component={SignIn}/>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
 App.propTypes = {
-  currentOffers: PropTypes.array.isRequired,
-  cities: PropTypes.array.isRequired,
-  onCityClick: PropTypes.func.isRequired,
-  onBookmarkClick: PropTypes.func.isRequired,
-  currentCity: PropTypes.string.isRequired,
-  offerScreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
-  currentSortValue: PropTypes.string.isRequired,
-  onSortTypeClick: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-  userEmail: PropTypes.string,
-  isLoginError: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
+  apart: PropTypes.shape(
+      {
+        location: PropTypes.shape({
+          city: PropTypes.string.isRequired,
+        }),
+        id: PropTypes.number.isRequired,
+        coordinate: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ),
+        rentalHost: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          hostName: PropTypes.string.isRequired,
+          hostAvatar: PropTypes.string.isRequired,
+          isSuper: PropTypes.bool.isRequired,
+        }),
+        description: PropTypes.string.isRequired,
+        imgSrc: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ),
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        isBookmark: PropTypes.bool.isRequired,
+        rentalDescription: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ),
+        roomQuantity: PropTypes.number.isRequired,
+        guestQuantity: PropTypes.number.isRequired,
+      }
+  ),
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: getCurrentCity(state),
-  offers: getAllOffers(state),
-  currentOffers: getCurrentOffers(state),
-  cities: getCities(state),
-  offerScreen: getActiveOfferScreen(state),
-  currentSortValue: getCurrentSortValue(state),
-  userEmail: getUserEmail(state),
-  isLoginError: getLoginStatus(state),
-  authorizationStatus: getAuthorisationStatus(state),
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick(city) {
-    dispatch(ActionCreator.changeCity(city));
-    dispatch(DataActionCreator.getOffers(city));
-  },
-  onBookmarkClick(offerId) {
-    dispatch(ActionCreator.changeOfferScreen(offerId));
-  },
-  onSortTypeClick(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
-  },
-  login(userData) {
-    dispatch(UserOperation.login(userData));
-  },
-});
-
-export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

@@ -7,9 +7,15 @@ import thunk from "redux-thunk";
 import App from "./components/app/app.jsx";
 import {createAPI} from "./api.js";
 import {Operation as DataOperation} from "./reducer/data/data.js";
-import {Operation as UserOperation} from "./reducer/user/user.js";
+import {Operation as UserOperation, ActionCreator} from "./reducer/user/user.js";
+import {AuthorizationStatus} from "./const.js";
+import propertyObj from "./mocks/property.js";
 
-const api = createAPI();
+const onUnauthorized = () => {
+  store.dispatch(ActionCreator.authorizeUser(AuthorizationStatus.UNAUTHORIZED));
+};
+
+const api = createAPI(onUnauthorized);
 
 const store = createStore(
     reducer,
@@ -24,8 +30,7 @@ store.dispatch(UserOperation.checkAuthorization());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
-    </Provider>
-    ,
+      <App apart={propertyObj}/>
+    </Provider>,
     document.querySelector(`#root`)
 );

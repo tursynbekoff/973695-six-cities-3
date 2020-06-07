@@ -44,11 +44,19 @@ class Map extends PureComponent {
     this.makersGroup = leaflet.layerGroup().addTo(this.map);
 
     this.props.offerList.forEach((it) => {
-      const isActive = (this.props.activeMapPin === it.id);
+      console.log(it.id, it.coordinate);
 
       leaflet.marker(it.coordinate, {
-        icon: this.getIcon(isActive)
+        icon: this.getIcon(false)
       }).addTo(this.makersGroup);
+
+      // if (this.props.activeMapPin !== false && this.props.activeMapPin === it.id) {
+      //   console.log(this.props.activeMapPin, it.coordinate);
+
+      //   leaflet.marker(it.coordinate, {
+      //     icon: this.getIcon(true)
+      //   }).addTo(this.makersGroup);
+      // }
     });
   }
 
