@@ -17,7 +17,8 @@ import {
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 const Details = (props) => {
-
+  console.log(`props on details page `, props);
+  console.log(props.loadOfferData);
   const {
     offer,
     offerList,
@@ -300,26 +301,26 @@ const Details = (props) => {
   );
 };
 
-Details.propTypes = {
-  cities: PropTypes.array.isRequired,
-  currentCity: PropTypes.string.isRequired,
-  userEmail: PropTypes.string.isRequired,
-  offer: PropTypes.oneOfType([PropTypes.bool,
-    PropTypes.shape({
-      rating: PropTypes.number,
-      id: PropTypes.number,
-      price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      description: PropTypes.string,
-      type: PropTypes.string,
-      reviews: PropTypes.array,
-    })
-  ]),
-  offerList: PropTypes.array.isRequired,
-  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  postReview: PropTypes.func.isRequired,
-  isSending: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
-};
+// Details.propTypes = {
+//   cities: PropTypes.array.isRequired,
+//   currentCity: PropTypes.string.isRequired,
+//   userEmail: PropTypes.string.isRequired,
+//   offer: PropTypes.oneOfType([PropTypes.bool,
+//     PropTypes.shape({
+//       rating: PropTypes.number,
+//       id: PropTypes.number,
+//       price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+//       description: PropTypes.string,
+//       type: PropTypes.string,
+//       reviews: PropTypes.array,
+//     })
+//   ]),
+//   offerList: PropTypes.array.isRequired,
+//   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+//   postReview: PropTypes.func.isRequired,
+//   isSending: PropTypes.bool.isRequired,
+//   isError: PropTypes.bool.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   reviews: getReviews(state),
@@ -330,6 +331,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadOfferData(id) {
     dispatch(DataOperation.getReviews(id));
+    console.log(`in page log, id: `, id);
   },
   postReview(id, review) {
     dispatch(DataOperation.postReview(id, review));

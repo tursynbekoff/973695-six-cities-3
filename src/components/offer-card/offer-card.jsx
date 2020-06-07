@@ -27,7 +27,12 @@ const Card = (props) => {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.offer(id)}>
+        <Link
+          onClick={() => {
+            onBookmarkClick(id);
+          }}
+          to={AppRoute.offer(id)}
+        >
           <img className="place-card__image" src={imgSrc[0]} width="260" height="200" alt="Place image" />
         </Link>
       </div>
@@ -38,9 +43,6 @@ const Card = (props) => {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            onClick={() => {
-              onBookmarkClick(id);
-            }}
             className="place-card__bookmark-button button"
             type="button"
           >

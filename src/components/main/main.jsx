@@ -32,7 +32,7 @@ const OfferContainerWrapped = withHover(OfferContainer);
 class Main extends PureComponent {
 
   render() {
-    const {offers, cities, onBookmarkClick, onCityClick, currentCity, currentSortValue, onSortTypeClick, userEmail} = this.props;
+    const {currentOffers, offers, cities, onBookmarkClick, onCityClick, currentCity, currentSortValue, onSortTypeClick, userEmail} = this.props;
 
     const isOfferList = offers.length > 0;
 
@@ -75,7 +75,7 @@ class Main extends PureComponent {
           <div className="cities">
             {isOfferList > 0 ?
               (<OfferContainerWrapped
-                offerList={offers}
+                offerList={currentOffers}
                 onBookmarkClick={onBookmarkClick}
                 currentCity={currentCity}
                 currentSortValue={currentSortValue}
@@ -93,6 +93,7 @@ class Main extends PureComponent {
   }
 }
 Main.propTypes = {
+  currentOffers: PropTypes.array.isRequired,
   offers: PropTypes.array.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
   cities: PropTypes.array.isRequired,
