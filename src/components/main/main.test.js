@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
+// import history from '../../history.js';
 
 const offerList = [
   {

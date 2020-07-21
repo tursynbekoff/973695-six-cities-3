@@ -4,17 +4,20 @@ import Details from "../offer-details/offer-details.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, Router} from "react-router-dom";
 import SignIn from '../sign-in/sign-in.jsx';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../const.js';
 import history from "../../history.js";
+
 class App extends PureComponent {
 
   render() {
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path={AppRoute.ROOT} component={Main}/>
-          <Route exact path={`/offer/:id`} component={Details}/>
-          <Route exact path={AppRoute.LOGIN} component={SignIn}/>
+          <Route path={AppRoute.ROOT} exact>
+            <Main/>
+          </Route>
+          <Route path={`/offer/:id`} exact component={Details}/>
+          <Route path={AppRoute.LOGIN} exact component={SignIn}/>
         </Switch>
       </Router>
     );

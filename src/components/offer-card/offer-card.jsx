@@ -31,7 +31,10 @@ const Card = (props) => {
           onClick={() => {
             onBookmarkClick(id);
           }}
-          to={AppRoute.offer(id)}
+          to={{
+            pathname: AppRoute.offer(id),
+            offer: offerCard
+          }}
         >
           <img className="place-card__image" src={imgSrc[0]} width="260" height="200" alt="Place image" />
         </Link>

@@ -2,6 +2,7 @@ import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import {CityCoordinates} from "../../const.js";
+import {AppRoute} from '../../const.js';
 
 const zoom = 12;
 
@@ -15,7 +16,7 @@ class Map extends PureComponent {
 
   getIcon(isActive) {
     return leaflet.icon({
-      iconUrl: isActive ? `img/pin-active.svg` : `img/pin.svg`,
+      iconUrl: isActive ? AppRoute.ROOT + `img/pin-active.svg` : AppRoute.ROOT + `img/pin.svg`,
       iconSize: [20, 30],
     });
   }

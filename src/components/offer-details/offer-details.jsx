@@ -3,9 +3,29 @@ import ReviewList from "../review-list/review-list.jsx";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
+import NearOffers from "../near-offers/near-offers.jsx";
 import {OffersRestriction} from "../../const";
 import CommentSection from "../offer-review-form/offer-review-form.jsx";
 import withReview from "../../hocs/with-review/with-review.jsx";
+import {AppRoute} from '../../const.js';
+
+import {
+  getLoginStatus,
+  getUserEmail,
+  getAuthorisationStatus,
+} from "../../reducer/user/selectors.js";
+
+import {
+  getAllOffers,
+  getCurrentOffers,
+  getCities,
+} from "../../reducer/data/selectors.js";
+
+import {
+  getCurrentCity,
+  getCurrentSortValue,
+  getActiveOfferScreen,
+} from "../../reducer/app/selectors.js";
 
 const CommentSectionWrapped = withReview(CommentSection);
 
@@ -17,11 +37,12 @@ import {
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 const Details = (props) => {
-  console.log(`props on details page `, props);
-  console.log(props.loadOfferData);
+
+  console.log(props.history.location.offer);
+  console.log(props);
   const {
     offer,
-    offerList,
+    currentOffers,
     cities,
     currentCity,
     activeMapPin,
@@ -42,24 +63,42 @@ const Details = (props) => {
     roomQuantity,
     guestQuantity,
     rentalFeatures,
+    coordinate,
     rentalHost: {
       hostName,
       hostAvatar,
       isSuper
     }
-  } = offer;
+  } = props.history.location.offer;
 
-  const filteredList = offerList.filter((offerItem) => offerItem.id !== id);
+  const filteredList = currentOffers.filter((offerItem) => offerItem.id !== id);
+
+  const calculateDistance = (x0, y0, x1, y1) => {
+    const distance = Math.sqrt(Math.pow((y1 - y0), 2) + Math.pow((x1 - x0), 2));
+    return distance;
+  };
+
+  const coordinates = filteredList.map(function (it) {
+    it.distance = calculateDistance(coordinate[0], coordinate[1], it.coordinate[0], it.coordinate[1]);
+    return it;
+  });
+
+  coordinates.sort(function (a, b) {
+    return a.distance - b.distance;
+  });
+
+  const closeObj = coordinates.slice(0, 3);
 
   return (
     <React.Fragment>
+
       <div className="page">
         <header className="header">
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link" href="main.html">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                <a className="header__logo-link" href={AppRoute.ROOT}>
+                  <img className="header__logo" src={AppRoute.ROOT + `img/logo.svg`} alt="6 cities logo" width="81" height="41" />
                 </a>
               </div>
               <nav className="header__nav">
@@ -68,7 +107,7 @@ const Details = (props) => {
                     <a className="header__nav-link header__nav-link--profile" href="#">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">{userEmail}</span>
+                      <span className="header__user-name user__name">{}</span>
                     </a>
                   </li>
                 </ul>
@@ -149,7 +188,7 @@ const Details = (props) => {
                   <div className="property__host-user user">
                     <div
                       className={`property__avatar-wrapper user__avatar-wrapper ${isSuper ? `property__avatar-wrapper--pro` : ``} `}>
-                      <img className="property__avatar user__avatar" src={hostAvatar} width="74"
+                      <img className="property__avatar user__avatar" src={AppRoute.ROOT + hostAvatar} width="74"
                         height="74" alt="Host avatar" />
                     </div>
                     <span className="property__user-name">
@@ -171,22 +210,14 @@ const Details = (props) => {
                   <ReviewList
                     reviews={reviews}
                   />
-                  <CommentSectionWrapped
-                    onReviewSubmit={postReview}
-                    id={id}
-                    isSending={isSending}
-                    isError={isError}
-                  />
+
                 </section>
               </div>
             </div>
             <section className="property__map map">
-
               <Map
-                cities={cities}
                 currentCity={currentCity}
-                offerList={filteredList}
-                activeMapPin={activeMapPin}
+                offerList={closeObj}
               />
             </section>
           </section>
@@ -194,104 +225,16 @@ const Details = (props) => {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/room.jpg" width="260" height="200"
-                        alt="Place image" />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;80</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button
-                        className="place-card__bookmark-button place-card__bookmark-button--active button"
-                        type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-
-                        </svg>
-                        <span className="visually-hidden">In bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
-                    </h2>
-                    <p className="place-card__type">Private room</p>
-                  </div>
-                </article>
-
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200"
-                        alt="Place image" />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;132</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Canal View Prinsengracht</a>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
-
-                <article className="near-places__card place-card">
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200"
-                        alt="Place image" />
-                    </a>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;180</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">Nice, cozy, warm big bed apartment</a>
-                    </h2>
-                    <p className="place-card__type">Apartment</p>
-                  </div>
-                </article>
+                {
+                  closeObj.map((i) => {
+                    return <NearOffers
+                      imgSrc={i.imgSrc}
+                      rating={i.rating}
+                      price={i.price}
+                      type={i.type}
+                    />;
+                  })
+                }
               </div>
             </section>
           </div>
@@ -301,43 +244,54 @@ const Details = (props) => {
   );
 };
 
-// Details.propTypes = {
-//   cities: PropTypes.array.isRequired,
-//   currentCity: PropTypes.string.isRequired,
-//   userEmail: PropTypes.string.isRequired,
-//   offer: PropTypes.oneOfType([PropTypes.bool,
-//     PropTypes.shape({
-//       rating: PropTypes.number,
-//       id: PropTypes.number,
-//       price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//       description: PropTypes.string,
-//       type: PropTypes.string,
-//       reviews: PropTypes.array,
-//     })
-//   ]),
-//   offerList: PropTypes.array.isRequired,
-//   activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-//   postReview: PropTypes.func.isRequired,
-//   isSending: PropTypes.bool.isRequired,
-//   isError: PropTypes.bool.isRequired,
-// };
+Details.propTypes = {
+  cities: PropTypes.array.isRequired,
+  currentCity: PropTypes.string.isRequired,
+  userEmail: PropTypes.string.isRequired,
+  offer: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.shape({
+      rating: PropTypes.number,
+      id: PropTypes.number,
+      price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      description: PropTypes.string,
+      type: PropTypes.string,
+      reviews: PropTypes.array,
+    })
+  ]),
+  currentOffers: PropTypes.array.isRequired,
+  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  postReview: PropTypes.func.isRequired,
+  isSending: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+};
 
-const mapStateToProps = (state) => ({
-  reviews: getReviews(state),
-  isSending: getIsSending(state),
-  isError: getIsError(state),
-});
 
 const mapDispatchToProps = (dispatch) => ({
   loadOfferData(id) {
     dispatch(DataOperation.getReviews(id));
-    console.log(`in page log, id: `, id);
   },
   postReview(id, review) {
     dispatch(DataOperation.postReview(id, review));
     dispatch(DataOperation.getReviews(id));
   },
 });
+
+const mapStateToProps = (state) => (
+
+  {
+    reviews: getReviews(state),
+    isSending: getIsSending(state),
+    isError: getIsError(state),
+    currentCity: getCurrentCity(state),
+    offers: getAllOffers(state),
+    currentOffers: getCurrentOffers(state),
+    cities: getCities(state),
+    offerScreen: getActiveOfferScreen(state),
+    currentSortValue: getCurrentSortValue(state),
+    userEmail: getUserEmail(state),
+    isLoginError: getLoginStatus(state),
+    authorizationStatus: getAuthorisationStatus(state),
+  });
 
 export {Details};
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

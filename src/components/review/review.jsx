@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {AppRoute} from '../../const.js';
 
 const Review = (props) => {
   const {
     reviews: {
       name,
-      review
+      review,
+      avatar
     }
   } = props;
 
@@ -13,7 +15,7 @@ const Review = (props) => {
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={AppRoute.ROOT + avatar} width="54" height="54" alt="Reviews avatar"/>
         </div>
         <span className="reviews__user-name">
           {name}
@@ -40,7 +42,8 @@ Review.propTypes = {
     PropTypes.array,
     PropTypes.shape({
       name: PropTypes.string,
-      review: PropTypes.string
+      review: PropTypes.string,
+      avatar: PropTypes.string,
     })
   ]).isRequired,
 };
