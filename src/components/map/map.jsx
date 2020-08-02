@@ -42,6 +42,11 @@ class Map extends PureComponent {
 
   _getMap() {
 
+    for (let i = 0; i < this.props.offerList.length; i++) {
+      this.map.removeLayer();
+    }
+
+
     this.makersGroup = leaflet.layerGroup().addTo(this.map);
 
     this.props.offerList.forEach((it) => {

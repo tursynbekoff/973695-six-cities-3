@@ -65,3 +65,8 @@ export const Error = {
   SERVER_ERROR: 500,
   UNAUTHORIZED: 401
 };
+
+export const calculateDistance = (x0, y0, x1, y1) => {
+  const distance = Math.sqrt(Math.pow((y1 - y0), 2) + Math.pow((x1 - x0), 2));
+  return distance;
+};

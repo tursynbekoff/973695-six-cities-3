@@ -53,11 +53,18 @@ const OfferList = (props) => {
 };
 
 OfferList.propTypes = {
+
   offerList: PropTypes.array.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
-  currentSortValue: PropTypes.string.isRequired,
-  onHoverActiveMapPin: PropTypes.func.isRequired,
-  onHoverResetMapPin: PropTypes.func.isRequired,
+  currentSortValue: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.string.isRequired,
+  ]),
+  onHoverActiveMapPin: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.func.isRequired,
+  ]),
+  onHoverResetMapPin: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.func.isRequired,
+  ]),
 };
 
 export default OfferList;

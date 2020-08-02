@@ -3,53 +3,33 @@ import ReviewList from "../review-list/review-list.jsx";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
-import NearOffers from "../near-offers/near-offers.jsx";
-import {OffersRestriction} from "../../const";
-import CommentSection from "../offer-review-form/offer-review-form.jsx";
-import withReview from "../../hocs/with-review/with-review.jsx";
-import {AppRoute} from '../../const.js';
+import NearCard from "../near-offers/near-offers.jsx";
+
+import {AppRoute, calculateDistance, OffersRestriction} from '../../const.js';
 
 import {
-  getLoginStatus,
   getUserEmail,
-  getAuthorisationStatus,
 } from "../../reducer/user/selectors.js";
 
 import {
-  getAllOffers,
   getCurrentOffers,
-  getCities,
 } from "../../reducer/data/selectors.js";
 
 import {
   getCurrentCity,
-  getCurrentSortValue,
-  getActiveOfferScreen,
 } from "../../reducer/app/selectors.js";
 
-const CommentSectionWrapped = withReview(CommentSection);
-
-import {
-  getIsError,
-  getIsSending,
-  getReviews,
-} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
+
+import {ActionCreator} from "../../reducer/app/app.js";
 
 const Details = (props) => {
 
-  console.log(props.history.location.offer);
-  console.log(props);
   const {
-    offer,
     currentOffers,
-    cities,
     currentCity,
-    activeMapPin,
-    postReview,
-    isSending,
-    isError,
     userEmail,
+    onBookmarkClick,
   } = props;
 
   const {
@@ -72,11 +52,6 @@ const Details = (props) => {
   } = props.history.location.offer;
 
   const filteredList = currentOffers.filter((offerItem) => offerItem.id !== id);
-
-  const calculateDistance = (x0, y0, x1, y1) => {
-    const distance = Math.sqrt(Math.pow((y1 - y0), 2) + Math.pow((x1 - x0), 2));
-    return distance;
-  };
 
   const coordinates = filteredList.map(function (it) {
     it.distance = calculateDistance(coordinate[0], coordinate[1], it.coordinate[0], it.coordinate[1]);
@@ -107,7 +82,7 @@ const Details = (props) => {
                     <a className="header__nav-link header__nav-link--profile" href="#">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">{}</span>
+                      <span className="header__user-name user__name">{userEmail}</span>
                     </a>
                   </li>
                 </ul>
@@ -226,13 +201,15 @@ const Details = (props) => {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
                 {
-                  closeObj.map((i) => {
-                    return <NearOffers
-                      imgSrc={i.imgSrc}
-                      rating={i.rating}
-                      price={i.price}
-                      type={i.type}
-                    />;
+
+
+                  closeObj.map((offer, index) => {
+                    return (
+                      <NearCard
+                        offerCard={offer}
+                        onBookmarkClick={onBookmarkClick}
+                        key={index}
+                      />);
                   })
                 }
               </div>
@@ -245,7 +222,6 @@ const Details = (props) => {
 };
 
 Details.propTypes = {
-  cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   userEmail: PropTypes.string.isRequired,
   offer: PropTypes.oneOfType([PropTypes.bool,
@@ -258,11 +234,45 @@ Details.propTypes = {
       reviews: PropTypes.array,
     })
   ]),
+
+  history: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.shape({
+      location: PropTypes.oneOfType([PropTypes.bool,
+        PropTypes.shape({
+          offer: PropTypes.oneOfType([PropTypes.bool,
+            PropTypes.shape({
+              rating: PropTypes.number,
+              id: PropTypes.number,
+              price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+              description: PropTypes.string,
+              type: PropTypes.string,
+              imgSrc: PropTypes.arrayOf(
+                  PropTypes.string.isRequired
+              ),
+              roomQuantity: PropTypes.number,
+              guestQuantity: PropTypes.number,
+              rentalFeatures: PropTypes.arrayOf(
+                  PropTypes.string.isRequired
+              ),
+              coordinate: PropTypes.arrayOf(
+                  PropTypes.number.isRequired
+              ),
+            })
+          ]),
+        })
+      ]),
+    })
+  ]),
+
   currentOffers: PropTypes.array.isRequired,
-  activeMapPin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  postReview: PropTypes.func.isRequired,
-  isSending: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
+
+  onBookmarkClick: PropTypes.func.isRequired,
+  onHoverActiveMapPin: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.func
+  ]),
+  onHoverResetMapPin: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.func
+  ]),
 };
 
 
@@ -270,27 +280,17 @@ const mapDispatchToProps = (dispatch) => ({
   loadOfferData(id) {
     dispatch(DataOperation.getReviews(id));
   },
-  postReview(id, review) {
-    dispatch(DataOperation.postReview(id, review));
-    dispatch(DataOperation.getReviews(id));
+  onBookmarkClick(offerId) {
+    dispatch(ActionCreator.changeOfferScreen(offerId));
   },
 });
 
 const mapStateToProps = (state) => (
 
   {
-    reviews: getReviews(state),
-    isSending: getIsSending(state),
-    isError: getIsError(state),
     currentCity: getCurrentCity(state),
-    offers: getAllOffers(state),
     currentOffers: getCurrentOffers(state),
-    cities: getCities(state),
-    offerScreen: getActiveOfferScreen(state),
-    currentSortValue: getCurrentSortValue(state),
     userEmail: getUserEmail(state),
-    isLoginError: getLoginStatus(state),
-    authorizationStatus: getAuthorisationStatus(state),
   });
 
 export {Details};

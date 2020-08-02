@@ -85,8 +85,13 @@ Card.propTypes = {
     imgSrc: PropTypes.array,
   }),
   onBookmarkClick: PropTypes.func.isRequired,
-  onHoverActiveMapPin: PropTypes.func.isRequired,
-  onHoverResetMapPin: PropTypes.func.isRequired,
+
+  onHoverActiveMapPin: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.func
+  ]),
+  onHoverResetMapPin: PropTypes.oneOfType([PropTypes.bool,
+    PropTypes.func
+  ]),
 };
 
 export default Card;

@@ -22,8 +22,6 @@ const OfferContainer = (props) => {
 
   const placesStentence = `${offerList.length} ${(offerList.length === 1) ? `place` : `places` } to stay in ${currentCity}`;
 
-  // const offers = offerList.slice(0, 10);
-
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
